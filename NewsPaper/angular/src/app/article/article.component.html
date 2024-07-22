@@ -1,0 +1,121 @@
+<abp-page [title]="'::Menu:Articles' | abpLocalization">
+    <abp-page-toolbar-container class="col">
+      <div class="text-lg-end pt-2">
+        <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createArticle()">
+          <i class="fa fa-plus me-1"></i>
+          {{ '::NewArticle' | abpLocalization }}
+        </button>
+      </div>
+    </abp-page-toolbar-container>
+  
+    <div class="card">
+      <div class="card-body">
+        <ngx-datatable [rows]="articles$ | async" [count]="articleTotalCount" default>
+          <ngx-datatable-column [name]="'::Title' | abpLocalization" prop="title"></ngx-datatable-column>
+          <ngx-datatable-column [name]="'::PublicationDate' | abpLocalization" prop="publicationDate">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.publicationDate | date }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [name]="'::AuthorName' | abpLocalization" prop="authorName"></ngx-datatable-column>
+          <ngx-datatable-column [name]="'::CategoryName' | abpLocalization" prop="categoryName"></ngx-datatable-column>
+          <ngx-datatable-column [name]="'::EditionName' | abpLocalization" prop="editionName"></ngx-datatable-column>
+          <ngx-datatable-column [name]="'::Tags' | abpLocalization" prop="tags">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{ row.tags.join(', ') }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <div ngbDropdown container="body" class="d-inline-block">
+                <button class="btn btn-primary btn-sm dropdown-toggle" aria-haspopup="true" ngbDropdownToggle>
+                  <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
+                </button>
+                <div ngbDropdownMenu>
+                  <button *abpPermission="'NewsPaper.Articles.Edit'" ngbDropdownItem (click)="editArticle(row.id)">
+                    {{ '::Edit' | abpLocalization }}
+                  </button>
+                  <button *abpPermission="'NewsPaper.Articles.Delete'" ngbDropdownItem (click)="delete(row.id)">
+                    {{ '::Delete' | abpLocalization }}
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </abp-page>
+  
+  <!-- Add the modal here -->
+  <abp-modal [(visible)]="isModalOpen">
+    <ng-template #abpHeader>
+      <h3>{{ (currentArticleId ? '::EditArticle' : '::NewArticle') | abpLocalization }}</h3>
+    </ng-template>
+  
+    <ng-template #abpBody>
+      <form [formGroup]="articleForm" (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="article-title">Title</label><span> * </span>
+          <input type="text" id="article-title" class="form-control" formControlName="title" autofocus />
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-content">Content</label><span> * </span>
+          <textarea id="article-content" class="form-control" formControlName="content"></textarea>
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-publication-date">Publication Date</label><span> * </span>
+          <input type="date" id="article-publication-date" class="form-control" formControlName="publicationDate" />
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-author">Author</label><span> * </span>
+          <select id="article-author" class="form-control" formControlName="authorId">
+            <option *ngFor="let author of (authors$ | async)" [value]="author.id">
+              {{ author.fullName }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-category">Category</label><span> * </span>
+          <select id="article-category" class="form-control" formControlName="categoryId">
+            <option *ngFor="let category of (categories$ | async)" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-edition">Edition</label><span> * </span>
+          <select id="article-edition" class="form-control" formControlName="editionId">
+            <option *ngFor="let edition of (editions$ | async)" [value]="edition.id">
+              {{ edition.name }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-group mt-2">
+          <label for="article-tags">Tags</label><span> * </span>
+          <select id="article-tags" class="form-control" formControlName="tagIds" multiple>
+            <option *ngFor="let tag of (tags$ | async)" [value]="tag.id">
+              {{ tag.name }}
+            </option>
+          </select>
+        </div>
+      </form>
+    </ng-template>
+  
+    <ng-template #abpFooter>
+      <button type="button" class="btn btn-secondary" abpClose>
+        {{ '::Close' | abpLocalization }}
+      </button>
+      <button class="btn btn-primary" (click)="save()" [disabled]="articleForm.invalid">
+        <i class="fa fa-check me-1"></i>
+        {{ '::Save' | abpLocalization }}
+      </button>
+    </ng-template>
+  </abp-modal>
+  

@@ -1,0 +1,35 @@
+{
+  "culture": "en",
+  "texts": {
+    "Menu:Home": "Home",
+    "Welcome": "Welcome",
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Permission:NewsPaper": "News Paper",
+    "Permission:Categories": "Categoy Management",
+    "Permission:Categories.Create": "Creating new Categories",
+    "Permission:Categories.Edit": "Editing the Categories",
+    "Permission:Categories.Delete": "Deleting the Categories",
+
+    "Permission:Tags": "Tag Management",
+    "Permission:Tags.Create": "Creating new Tags",
+    "Permission:Tags.Edit": "Editing the Tags",
+    "Permission:Tags.Delete": "Deleting the Tags",
+
+    "Permission:Editions": "Edition Management",
+    "Permission:Editions.Create": "Creating new Editions",
+    "Permission:Editions.Edit": "Editing the Editions",
+    "Permission:Editions.Delete": "Deleting the Editions",
+
+    "Permission:Authors": "Author Management",
+    "Permission:Authors.Create": "Creating new Authors",
+    "Permission:Authors.Edit": "Editing the Authors",
+    "Permission:Authors.Delete": "Deleting the Authors",
+
+    "Permission:Articles": "Article Management",
+    "Permission:Articles.Create": "Creating new Articles",
+    "Permission:Articles.Edit": "Editing the Articles",
+    "Permission:Articles.Delete": "Deleting the Articles"
+    
+    
+  }
+}

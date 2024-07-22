@@ -1,0 +1,115 @@
+<abp-page [title]="'::Menu:Authors' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createAuthor()">
+        <i class="fa fa-plus me-1"></i>
+        {{ '::NewAuthor' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="authors.items" [count]="authors.totalCount" [list]="list" default>
+        <ngx-datatable-column [name]="'::FullName' | abpLocalization" prop="fullName"></ngx-datatable-column>
+        <ngx-datatable-column [name]="'::Bio' | abpLocalization" prop="bio">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.bio }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button class="btn btn-primary btn-sm dropdown-toggle" aria-haspopup="true" ngbDropdownToggle>
+                <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
+              </button>
+              <div ngbDropdownMenu>
+                <button *abpPermission="'NewsPaper.Authors.Edit'" ngbDropdownItem (click)="editAuthor(row.id)">
+                  {{ '::Edit' | abpLocalization }}
+                </button>
+                <button *abpPermission="'NewsPaper.Authors.Delete'" ngbDropdownItem (click)="delete(row.id)">
+                  {{ '::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>{{ '::NewAuthor' | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="user-userName">Username</label><span> * </span>
+        <input type="text" id="user-userName" class="form-control" formControlName="userName" autofocus />
+        <div *ngIf="form.get('userName').invalid && (form.get('userName').dirty || form.get('userName').touched)" class="text-danger">
+          <div *ngIf="form.get('userName').errors.required">Username is required.</div>
+          <div *ngIf="form.get('userName').errors.userNameExists">Username already exists.</div>
+        </div>
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="user-name"> first Name</label><span> * </span>
+        <input type="text" id="user-name" class="form-control" formControlName="name" />
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="user-surname">Last Name</label><span> * </span>
+        <input type="text" id="user-surname" class="form-control" formControlName="surname" />
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="user-email">Email</label><span> * </span>
+        <input type="email" id="user-email" class="form-control" formControlName="email" />
+        <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)" class="text-danger">
+          <div *ngIf="form.get('email').errors.required">Email is required.</div>
+          <div *ngIf="form.get('email').errors.email">Invalid email format.</div>
+        </div>
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="user-phoneNumber">Phone Number</label><span> * </span>
+        <input type="text" id="user-phoneNumber" class="form-control" formControlName="phoneNumber" />
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="user-password">Password</label><span> * </span>
+        <input type="password" id="user-password" class="form-control" formControlName="password" />
+        <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" class="text-danger">
+          <div *ngIf="form.get('password').errors.required">Password is required.</div>
+          <div *ngIf="form.get('password').errors.minlength">Password must be at least 6 characters long.</div>
+          <div *ngIf="form.get('password').errors.pattern">Password must contain at least one uppercase letter, one lowercase letter, and one number.</div>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="form-group mt-2">
+        <label for="author-fullName">Full Name</label><span> * </span>
+        <input type="text" id="author-fullName" class="form-control" formControlName="fullName" />
+      </div>
+
+      <div class="form-group mt-2">
+        <label for="author-bio">Bio</label><span> * </span>
+        <input type="text" id="author-bio" class="form-control" formControlName="bio" />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '::Close' | abpLocalization }}
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
+      <i class="fa fa-check me-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </ng-template>
+</abp-modal>
