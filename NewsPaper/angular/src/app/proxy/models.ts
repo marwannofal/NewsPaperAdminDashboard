@@ -7,12 +7,11 @@ export interface ArticleDto extends FullAuditedEntityDto<string> {
   authorName?: string;
   categoryName?: string;
   editionName?: string;
-  tags: string[];
+  tagNames: string[];
   authorId?: string;
   categoryId?: string;
-  editionId1?: string
+  versionId?: string;
   tagIds: string[];
-
 }
 
 export interface AuthorDto extends FullAuditedEntityDto<string> {
@@ -39,7 +38,7 @@ export interface CreateAndUpdateArticleDto extends FullAuditedEntityDto<string> 
   publicationDate?: string;
   authorId?: string;
   categoryId?: string;
-  editionId1?: string;
+  versionId?: string;
   tagIds: string[];
 }
 

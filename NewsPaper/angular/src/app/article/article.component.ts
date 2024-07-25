@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ArticleService, AuthorService, CategoryService, EditionService, TagService } from '@proxy'; // Adjust import paths as needed
-import { ArticleDto, CreateAndUpdateArticleDto } from '@proxy'; // Adjust import paths as needed
+import { ArticleDto, CreateAndUpdateArticleDto, TagDto } from '@proxy'; // Adjust import paths as needed
 import { PagedAndSortedResultRequestDto } from '@abp/ng.core';
 
 @Component({
@@ -17,7 +17,7 @@ export class ArticleComponent implements OnInit {
   authors$: Observable<any[]>; // Observable for authors
   categories$: Observable<any[]>; // Observable for categories
   editions$: Observable<any[]>; // Observable for editions
-  tags$: Observable<any[]>; // Observable for tags
+  tags$: Observable<TagDto[]>; // Observable for tags
 
   isEditing = false;
   currentArticleId: string | null = null;
@@ -34,9 +34,9 @@ export class ArticleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadArticles();
     this.buildForm();
     this.loadDropdowns();
-    this.loadArticles();
   }
 
   buildForm() {
@@ -46,8 +46,8 @@ export class ArticleComponent implements OnInit {
       publicationDate: [new Date().toISOString().split('T')[0], Validators.required], // Default to today's date
       authorId: [null, Validators.required],
       categoryId: [null, Validators.required],
-      editionId: [null, Validators.required],
-      tagIds: [[], Validators.required]
+      versionId: [null, Validators.required], // Changed from editionId
+      tagIds: [[], Validators.required] // Array of tag IDs
     });
   }
 
@@ -60,7 +60,7 @@ export class ArticleComponent implements OnInit {
     this.categories$ = this.categoryService.getList(requestDto).pipe(
       map(response => response.items) // Extract items from PagedResultDto
     );
-    this.editions$ = this.editionService.getList(requestDto).pipe(
+    this.editions$ = this.editionService.getList(requestDto).pipe( // Keeping the service name as editions$
       map(response => response.items) // Extract items from PagedResultDto
     );
     this.tags$ = this.tagService.getList(requestDto).pipe(
@@ -70,18 +70,19 @@ export class ArticleComponent implements OnInit {
 
   loadArticles() {
     const requestDto = new PagedAndSortedResultRequestDto(); // Create an empty request DTO
-
-    this.articleService.getList(requestDto).pipe(
+  
+    this.articles$ = this.articleService.getList(requestDto).pipe(
       map(response => {
         this.articleTotalCount = response.totalCount; // Update the total count
-        return response.items; // Extract items from PagedResultDto
+        return response.items.map(article => {
+          // Fetch the edition name based on the versionId
+          this.editionService.get(article.versionId).subscribe(edition => {
+            article.editionName = edition.name; // Assuming the edition has a 'name' property
+          });
+          return article;
+        });
       })
-    ).subscribe(articles => {
-      this.articles$ = new Observable<ArticleDto[]>(observer => {
-        observer.next(articles);
-        observer.complete();
-      });
-    });
+    );
   }
 
   createArticle() {
@@ -93,7 +94,7 @@ export class ArticleComponent implements OnInit {
       publicationDate: new Date().toISOString().split('T')[0],
       authorId: null,
       categoryId: null,
-      editionId: null,
+      versionId: '', // Changed from editionId
       tagIds: []
     });
     this.isModalOpen = true;
@@ -104,15 +105,18 @@ export class ArticleComponent implements OnInit {
     this.currentArticleId = id;
 
     this.articleService.get(id).subscribe(article => {
-      this.articleForm.patchValue({
+      // Manually map properties from ArticleDto to CreateAndUpdateArticleDto
+      const formValues: CreateAndUpdateArticleDto = {
         title: article.title,
         content: article.content,
         publicationDate: article.publicationDate?.split('T')[0] || '',
-        authorId: article.authorId,
-        categoryId: article.categoryId,
-        editionId: article.editionId1,
-        tagIds: article.tagIds
-      });
+        authorId: article.authorId || '', // Assuming you fetch this separately
+        categoryId: article.categoryId || '', // Assuming you fetch this separately
+        versionId: article.versionId, // Assuming you fetch this separately
+        tagIds: article.tagIds || [] // Assuming you fetch this separately
+      };
+
+      this.articleForm.patchValue(formValues);
       this.isModalOpen = true;
     });
   }
@@ -156,7 +160,7 @@ export class ArticleComponent implements OnInit {
       publicationDate: new Date().toISOString().split('T')[0],
       authorId: null,
       categoryId: null,
-      editionId: null,
+      versionId: null, // Changed from editionId
       tagIds: []
     });
   }

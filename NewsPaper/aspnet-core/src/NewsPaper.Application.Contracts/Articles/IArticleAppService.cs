@@ -12,9 +12,5 @@ namespace NewsPaper
             PagedAndSortedResultRequestDto, // DTO for paging and sorting
             CreateAndUpdateArticleDto> // DTO for creating/updating 
     {
-        Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
-        Task<ListResultDto<CategoryLookupDto>> GetCategoryLookupAsync();
-        Task<ListResultDto<EditionLookupDto>> GetEditionLookupAsync();
-        Task<ListResultDto<TagLookupDto>> GetTagLookupAsync();
     }
 }

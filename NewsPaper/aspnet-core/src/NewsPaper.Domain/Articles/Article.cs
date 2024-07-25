@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace NewsPaper
@@ -11,14 +12,13 @@ namespace NewsPaper
         public DateTime PublicationDate { get; set; }
         public Guid AuthorId { get; set; } // Foreign key to User entity
         public Guid CategoryId { get; set; } // Foreign key to Category entity
-        public Guid EditionId1 { get; set; } // Foreign key to Edition entity
-
+        [ForeignKey("Edition")]
+        public Guid VersionId { get; set; } // Foreign key to Edition entity
 
         // Navigation properties
         public virtual Author Author { get; set; }
         public virtual Category Category { get; set; }
         public virtual Edition Edition { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
-        
+        public virtual ICollection<ArticleTag> ArticleTags { get; set; } = new List<ArticleTag>();        
     }
 }

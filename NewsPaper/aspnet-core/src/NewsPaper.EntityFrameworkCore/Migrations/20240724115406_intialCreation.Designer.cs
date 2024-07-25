@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace NewsPaper.Migrations
 {
     [DbContext(typeof(NewsPaperDbContext))]
-    [Migration("20240717074403_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20240724115406_intialCreation")]
+    partial class intialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace NewsPaper.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("NewsPaper.Entities.Article", b =>
+            modelBuilder.Entity("NewsPaper.Article", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -67,9 +67,6 @@ namespace NewsPaper.Migrations
                     b.Property<Guid?>("EditionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EditionId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("ExtraProperties")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -95,6 +92,9 @@ namespace NewsPaper.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("VersionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -106,55 +106,13 @@ namespace NewsPaper.Migrations
                     b.ToTable("Articles");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.ArticleTag", b =>
+            modelBuilder.Entity("NewsPaper.ArticleTag", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ArticleId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
 
                     b.Property<Guid>("TagId")
                         .HasColumnType("uniqueidentifier");
@@ -168,7 +126,7 @@ namespace NewsPaper.Migrations
                     b.ToTable("ArticleTags");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Author", b =>
+            modelBuilder.Entity("NewsPaper.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -231,7 +189,7 @@ namespace NewsPaper.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Category", b =>
+            modelBuilder.Entity("NewsPaper.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -289,7 +247,7 @@ namespace NewsPaper.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Comment", b =>
+            modelBuilder.Entity("NewsPaper.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -360,7 +318,7 @@ namespace NewsPaper.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Edition", b =>
+            modelBuilder.Entity("NewsPaper.Edition", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -418,12 +376,9 @@ namespace NewsPaper.Migrations
                     b.ToTable("Editions");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Tag", b =>
+            modelBuilder.Entity("NewsPaper.Tag", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ArticleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -472,8 +427,6 @@ namespace NewsPaper.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
 
                     b.ToTable("Tags");
                 });
@@ -2274,21 +2227,21 @@ namespace NewsPaper.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Article", b =>
+            modelBuilder.Entity("NewsPaper.Article", b =>
                 {
-                    b.HasOne("NewsPaper.Entities.Author", "Author")
+                    b.HasOne("NewsPaper.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NewsPaper.Entities.Category", "Category")
+                    b.HasOne("NewsPaper.Category", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NewsPaper.Entities.Edition", "Edition")
+                    b.HasOne("NewsPaper.Edition", "Edition")
                         .WithMany("Articles")
                         .HasForeignKey("EditionId");
 
@@ -2299,16 +2252,16 @@ namespace NewsPaper.Migrations
                     b.Navigation("Edition");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.ArticleTag", b =>
+            modelBuilder.Entity("NewsPaper.ArticleTag", b =>
                 {
-                    b.HasOne("NewsPaper.Entities.Article", "Article")
-                        .WithMany()
+                    b.HasOne("NewsPaper.Article", "Article")
+                        .WithMany("ArticleTags")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NewsPaper.Entities.Tag", "Tag")
-                        .WithMany()
+                    b.HasOne("NewsPaper.Tag", "Tag")
+                        .WithMany("ArticleTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2318,7 +2271,7 @@ namespace NewsPaper.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Author", b =>
+            modelBuilder.Entity("NewsPaper.Author", b =>
                 {
                     b.HasOne("Volo.Abp.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
@@ -2329,28 +2282,21 @@ namespace NewsPaper.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Comment", b =>
+            modelBuilder.Entity("NewsPaper.Comment", b =>
                 {
-                    b.HasOne("NewsPaper.Entities.Article", "Article")
+                    b.HasOne("NewsPaper.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("NewsPaper.Entities.Author", "Author")
+                    b.HasOne("NewsPaper.Author", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Article");
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("NewsPaper.Entities.Tag", b =>
-                {
-                    b.HasOne("NewsPaper.Entities.Article", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("ArticleId");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -2495,19 +2441,24 @@ namespace NewsPaper.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Article", b =>
+            modelBuilder.Entity("NewsPaper.Article", b =>
                 {
-                    b.Navigation("Tags");
+                    b.Navigation("ArticleTags");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Category", b =>
+            modelBuilder.Entity("NewsPaper.Category", b =>
                 {
                     b.Navigation("Articles");
                 });
 
-            modelBuilder.Entity("NewsPaper.Entities.Edition", b =>
+            modelBuilder.Entity("NewsPaper.Edition", b =>
                 {
                     b.Navigation("Articles");
+                });
+
+            modelBuilder.Entity("NewsPaper.Tag", b =>
+                {
+                    b.Navigation("ArticleTags");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

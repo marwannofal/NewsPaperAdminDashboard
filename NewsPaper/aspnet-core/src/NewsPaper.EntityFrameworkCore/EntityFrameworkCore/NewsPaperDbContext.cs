@@ -30,8 +30,7 @@ public class NewsPaperDbContext :
     public DbSet<Author> Authors { get; set; } // Assuming you extend AbpUser<Guid>
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Edition> Editions { get; set; }
-    public DbSet<ArticleTag> ArticleTags { get; set; }
-
+    public DbSet<ArticleTag> ArticleTags{ get; set; }
 
     #region Entities from the modules
 

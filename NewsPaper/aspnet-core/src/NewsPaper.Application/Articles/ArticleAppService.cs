@@ -5,134 +5,102 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 using NewsPaper.Permissions;
-using System.Linq.Dynamic.Core; // Add this for dynamic LINQ support
+using Volo.Abp.Domain.Entities;
+using Microsoft.Extensions.Logging;
+using Volo.Abp;
+using NewsPaper.Articles;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewsPaper
 {
     [Authorize(NewsPaperPermissions.Articles.Default)]
     public class ArticleAppService :
         CrudAppService<
-            Article,
-            ArticleDto,
-            Guid,
-            PagedAndSortedResultRequestDto,
-            CreateAndUpdateArticleDto>,
-        IArticleAppService
+            Article, // The Article entity
+            ArticleDto, // Used to show articles
+            Guid, // Primary key of the article entity
+            PagedAndSortedResultRequestDto, // Used for paging/sorting
+            CreateAndUpdateArticleDto>, // Used to create/update an article
+        IArticleAppService // Implement the IArticleAppService
     {
-        private readonly IRepository<Author, Guid> _authorRepository;
-        private readonly IRepository<Category, Guid> _categoryRepository;
-        private readonly IRepository<Edition, Guid> _editionRepository;
-        private readonly IRepository<Tag, Guid> _tagRepository;
+        private readonly IArticleRepository _articleRepository; // Use custom repository
         private readonly IRepository<ArticleTag, Guid> _articleTagRepository;
-
+        private readonly ILogger<ArticleAppService> _logger;
+        
         public ArticleAppService(
-            IRepository<Article, Guid> repository,
-            IRepository<Author, Guid> authorRepository,
-            IRepository<Category, Guid> categoryRepository,
-            IRepository<Edition, Guid> editionRepository,
-            IRepository<Tag, Guid> tagRepository,
-            IRepository<ArticleTag, Guid> articleTagRepository)
-            : base(repository)
+            IArticleRepository articleRepository,
+            IRepository<ArticleTag, Guid> articleTagRepository,
+            ILogger<ArticleAppService> logger
+        ) : base(articleRepository)
         {
-            _authorRepository = authorRepository;
-            _categoryRepository = categoryRepository;
-            _editionRepository = editionRepository;
-            _tagRepository = tagRepository;
+            _articleRepository = articleRepository;
             _articleTagRepository = articleTagRepository;
-
-            GetPolicyName = NewsPaperPermissions.Articles.Default;
-            GetListPolicyName = NewsPaperPermissions.Articles.Default;
-            CreatePolicyName = NewsPaperPermissions.Articles.Create;
-            UpdatePolicyName = NewsPaperPermissions.Articles.Edit;
-            DeletePolicyName = NewsPaperPermissions.Articles.Delete;
+            _logger = logger;
         }
 
+        [UnitOfWork]
         public override async Task<ArticleDto> GetAsync(Guid id)
         {
-            var queryable = await Repository.GetQueryableAsync();
+            var query = _articleRepository
+                .WithDetails();
 
-            var query = from article in queryable
-                        join author in await _authorRepository.GetQueryableAsync() on article.AuthorId equals author.Id into authors
-                        from author in authors.DefaultIfEmpty()
-                        join category in await _categoryRepository.GetQueryableAsync() on article.CategoryId equals category.Id into categories
-                        from category in categories.DefaultIfEmpty()
-                        join edition in await _editionRepository.GetQueryableAsync() on article.EditionId1 equals edition.Id into editions
-                        from edition in editions.DefaultIfEmpty()
-                        where article.Id == id
-                        select new { article, author, category, edition };
+            var article = await query.FirstOrDefaultAsync(a => a.Id == id);
 
-            var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
-            if (queryResult == null)
+            if (article == null)
             {
                 throw new EntityNotFoundException(typeof(Article), id);
             }
 
-            var articleTagQueryable = await _articleTagRepository.GetQueryableAsync();
-            var tagIds = await AsyncExecuter.ToListAsync(
-                articleTagQueryable.Where(at => at.ArticleId == id).Select(at => at.TagId)
-            );
+            // Log Edition details
+            if (article.Edition == null)
+            {
+                _logger.LogWarning("Edition not loaded for article {ArticleId}", id);
+            }
+            else
+            {
+                _logger.LogInformation("Loaded edition {EditionName} for article {ArticleId}", article.Edition.Name, id);
+            }
 
-            var tagQueryable = await _tagRepository.GetQueryableAsync();
-            var tags = await AsyncExecuter.ToListAsync(
-                tagQueryable.Where(t => tagIds.Contains(t.Id)).Select(t => t.Name)
-            );
+            var articleDto = ObjectMapper.Map<Article, ArticleDto>(article);
 
-            var articleDto = ObjectMapper.Map<Article, ArticleDto>(queryResult.article);
-            articleDto.AuthorName = queryResult.author?.FullName;
-            articleDto.CategoryName = queryResult.category?.Name;
-            articleDto.EditionName = queryResult.edition?.Name;
-            articleDto.Tags = tags;
+            // Log mapped EditionName
+            _logger.LogInformation("Mapped edition name: {EditionName}", articleDto.EditionName);
 
             return articleDto;
         }
 
+        [UnitOfWork]
         public override async Task<PagedResultDto<ArticleDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            var queryable = await Repository.GetQueryableAsync();
+            var query = _articleRepository
+                .WithDetails();
 
-            var query = from article in queryable
-                        join author in await _authorRepository.GetQueryableAsync() on article.AuthorId equals author.Id into authors
-                        from author in authors.DefaultIfEmpty()
-                        join category in await _categoryRepository.GetQueryableAsync() on article.CategoryId equals category.Id into categories
-                        from category in categories.DefaultIfEmpty()
-                        join edition in await _editionRepository.GetQueryableAsync() on article.EditionId1 equals edition.Id into editions
-                        from edition in editions.DefaultIfEmpty()
-                        select new { article, author, category, edition };
+            query = query.OrderBy(a => a.PublicationDate); // Apply OrderBy after awaiting the task
 
-            // Apply sorting, paging and then execute the query
-            query = query
-                .OrderBy(NormalizeSorting(input.Sorting)) // using System.Linq.Dynamic.Core
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount);
+            var totalCount = await AsyncExecuter.CountAsync(query);
 
-            var queryResult = await AsyncExecuter.ToListAsync(query);
+            var articles = await AsyncExecuter.ToListAsync(
+                query.PageBy(input.SkipCount, input.MaxResultCount)
+            );
 
-            var articleDtos = new List<ArticleDto>();
-            foreach (var result in queryResult)
+            var firstArticle = articles.FirstOrDefault();
+            if (firstArticle?.Edition == null)
             {
-                var articleTagQueryable = await _articleTagRepository.GetQueryableAsync();
-                var tagIds = await AsyncExecuter.ToListAsync(
-                    articleTagQueryable.Where(at => at.ArticleId == result.article.Id).Select(at => at.TagId)
-                );
-
-                var tagQueryable = await _tagRepository.GetQueryableAsync();
-                var tags = await AsyncExecuter.ToListAsync(
-                    tagQueryable.Where(t => tagIds.Contains(t.Id)).Select(t => t.Name)
-                );
-
-                var articleDto = ObjectMapper.Map<Article, ArticleDto>(result.article);
-                articleDto.AuthorName = result.author?.FullName;
-                articleDto.CategoryName = result.category?.Name;
-                articleDto.EditionName = result.edition?.Name;
-                articleDto.Tags = tags;
-
-                articleDtos.Add(articleDto);
+                _logger.LogWarning("Edition not loaded for the first article in the list");
+            }
+            else
+            {
+                _logger.LogInformation("Loaded edition {EditionName} for the first article in the list", firstArticle?.Edition?.Name);
             }
 
-            var totalCount = await Repository.GetCountAsync();
+            var articleDtos = ObjectMapper.Map<List<Article>, List<ArticleDto>>(articles);
+
+            // Log mapped EditionName for the first article DTO
+            var firstArticleDto = articleDtos.FirstOrDefault();
+            _logger.LogInformation("Mapped edition name for the first article DTO: {EditionName}", firstArticleDto?.EditionName);
 
             return new PagedResultDto<ArticleDto>(
                 totalCount,
@@ -140,51 +108,90 @@ namespace NewsPaper
             );
         }
 
-        public async Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync()
+        [UnitOfWork]
+        public override async Task<ArticleDto> CreateAsync(CreateAndUpdateArticleDto input)
         {
-            var authors = await _authorRepository.GetListAsync();
-            return new ListResultDto<AuthorLookupDto>(
-                ObjectMapper.Map<List<Author>, List<AuthorLookupDto>>(authors)
-            );
-        }
-
-        public async Task<ListResultDto<CategoryLookupDto>> GetCategoryLookupAsync()
-        {
-            var categories = await _categoryRepository.GetListAsync();
-            return new ListResultDto<CategoryLookupDto>(
-                ObjectMapper.Map<List<Category>, List<CategoryLookupDto>>(categories)
-            );
-        }
-
-        public async Task<ListResultDto<EditionLookupDto>> GetEditionLookupAsync()
-        {
-            var editions = await _editionRepository.GetListAsync();
-            return new ListResultDto<EditionLookupDto>(
-                ObjectMapper.Map<List<Edition>, List<EditionLookupDto>>(editions)
-            );
-        }
-
-        public async Task<ListResultDto<TagLookupDto>> GetTagLookupAsync()
-        {
-            var tags = await _tagRepository.GetListAsync();
-            return new ListResultDto<TagLookupDto>(
-                ObjectMapper.Map<List<Tag>, List<TagLookupDto>>(tags)
-            );
-        }
-
-        private static string NormalizeSorting(string sorting)
-        {
-            if (string.IsNullOrEmpty(sorting))
+            try
             {
-                return $"article.{nameof(Article.Title)}";
-            }
+                var article = ObjectMapper.Map<CreateAndUpdateArticleDto, Article>(input);
 
-            if (sorting.Contains("authorName", StringComparison.OrdinalIgnoreCase))
+                await _articleRepository.InsertAsync(article);
+
+                foreach (var tagId in input.TagIds)
+                {
+                    var articleTag = new ArticleTag
+                    {
+                        ArticleId = article.Id,
+                        TagId = tagId
+                    };
+
+                    await _articleTagRepository.InsertAsync(articleTag);
+                }
+
+                await CurrentUnitOfWork.SaveChangesAsync(); // Ensure all changes are saved
+
+                return ObjectMapper.Map<Article, ArticleDto>(article);
+            }
+            catch (Exception ex)
             {
-                return sorting.Replace("authorName", "author.FullName", StringComparison.OrdinalIgnoreCase);
+                _logger.Log(LogLevel.Error, ex, "An error occurred while creating the article");
+                throw new UserFriendlyException("An internal error occurred during your request!");
             }
+        }
 
-            return $"article.{sorting}";
+        [UnitOfWork]
+        public override async Task<ArticleDto> UpdateAsync(Guid id, CreateAndUpdateArticleDto input)
+        {
+            try
+            {
+            // Fetch the existing article from the repository
+                var article = await _articleRepository.GetAsync(id);
+
+                // If the article does not exist, throw an exception
+                if (article == null)
+                {
+                    throw new EntityNotFoundException(typeof(Article), id);
+                }
+
+                // Manually update each property to avoid issues with EF Core tracking
+                article.Title = input.Title;
+                article.Content = input.Content;
+                article.PublicationDate = input.PublicationDate;
+                article.AuthorId = input.AuthorId;
+                article.CategoryId = input.CategoryId;
+                article.VersionId = input.VersionId; // Ensure this property is correctly set
+
+                // Delete existing ArticleTags associated with this article
+                var existingTags = await _articleTagRepository.GetListAsync(at => at.ArticleId == id);
+                foreach (var tag in existingTags)
+                {
+                    await _articleTagRepository.DeleteAsync(tag);
+                }
+
+                // Add new ArticleTags
+                foreach (var tagId in input.TagIds)
+                {
+                    var articleTag = new ArticleTag
+                    {
+                        ArticleId = id,
+                        TagId = tagId
+                    };
+
+                    await _articleTagRepository.InsertAsync(articleTag);
+                }
+
+                // Save changes to the unit of work
+                await CurrentUnitOfWork.SaveChangesAsync(); // Ensure all changes are saved
+
+                // Map the updated article entity back to a DTO
+                return ObjectMapper.Map<Article, ArticleDto>(article);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while updating the article with id {ArticleId}", id);
+                throw new UserFriendlyException("An internal error occurred during your request!");
+            }
         }
     }
 }

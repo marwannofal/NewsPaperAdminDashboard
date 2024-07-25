@@ -1322,137 +1322,6 @@
             }
           ],
           "actions": {
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
-              "httpMethod": "POST",
-              "url": "api/app/article",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "NewsPaper.CreateAndUpdateArticleDto, NewsPaper.Application.Contracts",
-                  "type": "NewsPaper.CreateAndUpdateArticleDto",
-                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "NewsPaper.CreateAndUpdateArticleDto",
-                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "NewsPaper.ArticleDto",
-                "typeSimple": "NewsPaper.ArticleDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<NewsPaper.ArticleDto,NewsPaper.CreateAndUpdateArticleDto>"
-            },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
-              "name": "UpdateAsync",
-              "httpMethod": "PUT",
-              "url": "api/app/article/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "typeAsString": "NewsPaper.CreateAndUpdateArticleDto, NewsPaper.Application.Contracts",
-                  "type": "NewsPaper.CreateAndUpdateArticleDto",
-                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "NewsPaper.CreateAndUpdateArticleDto",
-                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "NewsPaper.ArticleDto",
-                "typeSimple": "NewsPaper.ArticleDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<NewsPaper.ArticleDto,System.Guid,NewsPaper.CreateAndUpdateArticleDto>"
-            },
-            "DeleteAsyncById": {
-              "uniqueName": "DeleteAsyncById",
-              "name": "DeleteAsync",
-              "httpMethod": "DELETE",
-              "url": "api/app/article/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "System.Void",
-                "typeSimple": "System.Void"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
-            },
             "GetAsyncById": {
               "uniqueName": "GetAsyncById",
               "name": "GetAsync",
@@ -1487,7 +1356,7 @@
                 "type": "NewsPaper.ArticleDto",
                 "typeSimple": "NewsPaper.ArticleDto"
               },
-              "allowAnonymous": null,
+              "allowAnonymous": false,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<NewsPaper.ArticleDto,NewsPaper.ArticleDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
             },
             "GetListAsyncByInput": {
@@ -1548,8 +1417,139 @@
                 "type": "Volo.Abp.Application.Dtos.PagedResultDto<NewsPaper.ArticleDto>",
                 "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<NewsPaper.ArticleDto>"
               },
-              "allowAnonymous": null,
+              "allowAnonymous": false,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<NewsPaper.ArticleDto,NewsPaper.ArticleDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/app/article",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "NewsPaper.CreateAndUpdateArticleDto, NewsPaper.Application.Contracts",
+                  "type": "NewsPaper.CreateAndUpdateArticleDto",
+                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "NewsPaper.CreateAndUpdateArticleDto",
+                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "NewsPaper.ArticleDto",
+                "typeSimple": "NewsPaper.ArticleDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<NewsPaper.ArticleDto,NewsPaper.CreateAndUpdateArticleDto>"
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/app/article/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "NewsPaper.CreateAndUpdateArticleDto, NewsPaper.Application.Contracts",
+                  "type": "NewsPaper.CreateAndUpdateArticleDto",
+                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "NewsPaper.CreateAndUpdateArticleDto",
+                  "typeSimple": "NewsPaper.CreateAndUpdateArticleDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "NewsPaper.ArticleDto",
+                "typeSimple": "NewsPaper.ArticleDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<NewsPaper.ArticleDto,System.Guid,NewsPaper.CreateAndUpdateArticleDto>"
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/app/article/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Volo.Abp.Application.Services.IDeleteAppService<System.Guid>"
             }
           }
         },
@@ -5542,6 +5542,18 @@
           "regex": null
         },
         {
+          "name": "Content",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "PublicationDate",
           "jsonName": null,
           "type": "System.DateTime",
@@ -5590,9 +5602,57 @@
           "regex": null
         },
         {
-          "name": "Tags",
+          "name": "TagNames",
           "jsonName": null,
           "type": "[System.String]",
+          "typeSimple": "[string]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "AuthorId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CategoryId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "VersionId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TagIds",
+          "jsonName": null,
+          "type": "[System.Guid]",
           "typeSimple": "[string]",
           "isRequired": false,
           "minLength": null,
@@ -5806,7 +5866,7 @@
           "regex": null
         },
         {
-          "name": "EditionId1",
+          "name": "VersionId",
           "jsonName": null,
           "type": "System.Guid",
           "typeSimple": "string",
