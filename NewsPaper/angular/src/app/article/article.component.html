@@ -1,4 +1,4 @@
-<abp-page [title]="'::Menu:Articles' | abpLocalization">
+ <abp-page [title]="'::Menu:Articles' | abpLocalization">
   <abp-page-toolbar-container class="col">
     <div class="text-lg-end pt-2">
       <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createArticle()">
@@ -61,7 +61,7 @@
           {{ '::TitleRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-content">{{ '::Content' | abpLocalization }}</label><span> * </span>
         <textarea id="article-content" class="form-control" formControlName="content"></textarea>
@@ -69,7 +69,7 @@
           {{ '::ContentRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-publication-date">{{ '::PublicationDate' | abpLocalization }}</label><span> * </span>
         <input type="date" id="article-publication-date" class="form-control" formControlName="publicationDate" />
@@ -77,7 +77,7 @@
           {{ '::PublicationDateRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-author">{{ '::Author' | abpLocalization }}</label><span> * </span>
         <select id="article-author" class="form-control" formControlName="authorId">
@@ -89,7 +89,7 @@
           {{ '::AuthorRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-category">{{ '::Category' | abpLocalization }}</label><span> * </span>
         <select id="article-category" class="form-control" formControlName="categoryId">
@@ -101,7 +101,7 @@
           {{ '::CategoryRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-version">{{ '::Version' | abpLocalization }}</label><span> * </span>
         <select id="article-version" class="form-control" formControlName="versionId">
@@ -113,7 +113,7 @@
           {{ '::VersionRequired' | abpLocalization }}
         </div>
       </div>
-    
+
       <div class="form-group mt-2">
         <label for="article-tags">{{ '::Tags' | abpLocalization }}</label><span> * </span>
         <select id="article-tags" class="form-control" formControlName="tagIds" multiple>
@@ -125,7 +125,7 @@
           {{ '::TagsRequired' | abpLocalization }}
         </div>
       </div>
-    </form>    
+    </form>
   </ng-template>
 
   <ng-template #abpFooter>
