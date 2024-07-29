@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ListService, PagedResultDto } from '@abp/ng.core';
-import { TagService, TagDto } from '@proxy'; // Ensure the correct import path
-import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared'; // Add new imports
+import { TagService, TagDto } from '@proxy';
+import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tag',
@@ -11,16 +12,16 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared'; // Add
   providers: [ListService],
 })
 export class TagComponent implements OnInit {
-  tag = { items: [], totalCount: 0 } as PagedResultDto<TagDto>; // Adjust to TagDto
-  form: FormGroup; // Form for handling tag data
-  isModalOpen = false; // Control modal visibility
-  selectedTag = {} as TagDto; // Selected tag for editing
+  tag = { items: [], totalCount: 0 } as PagedResultDto<TagDto>;
+  form: FormGroup;
+  isModalOpen = false;
+  selectedTag = {} as TagDto;
 
   constructor(
     public readonly list: ListService,
     private tagService: TagService,
     private fb: FormBuilder,
-    private confirmation: ConfirmationService // Inject ConfirmationService
+    private confirmation: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class TagComponent implements OnInit {
   }
 
   createTag() {
-    this.selectedTag = {} as TagDto; // Reset selected tag
+    this.selectedTag = {} as TagDto;
     this.buildForm();
     this.isModalOpen = true;
   }
@@ -46,7 +47,7 @@ export class TagComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      name: [this.selectedTag.name || '', Validators.required],
+      name: [this.selectedTag.name || '', [Validators.required]],
     });
   }
 
@@ -54,15 +55,23 @@ export class TagComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-
+  
     const request = this.selectedTag.id
       ? this.tagService.update(this.selectedTag.id, this.form.value)
       : this.tagService.create(this.form.value);
-
-    request.subscribe(() => {
-      this.isModalOpen = false;
-      this.form.reset();
-      this.list.get();
+  
+    request.pipe(finalize(() => this.isModalOpen = false)).subscribe({
+      next: () => {
+        this.form.reset();
+        this.list.get();
+      },
+      error: (error) => {
+        if (error.error && error.error.message === 'DuplicateTagName') {
+          this.form.get('name').setErrors({ thereIsExist: true });
+        } else {
+          alert(error.error.message || 'An error occurred. Please try again.');
+        }
+      }
     });
   }
 

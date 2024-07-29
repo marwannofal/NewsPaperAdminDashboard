@@ -144,46 +144,84 @@ namespace NewsPaper
         {
             try
             {
-            // Fetch the existing article from the repository
-                var article = await _articleRepository.GetAsync(id);
+                // // Fetch the existing article from the repository
+                // var article = await _articleRepository.GetAsync(id);
 
-                // If the article does not exist, throw an exception
+                // // If the article does not exist, throw an exception
+                // if (article == null)
+                // {
+                //     throw new EntityNotFoundException(typeof(Article), id);
+                // }
+
+                // // Manually update each property to avoid issues with EF Core tracking
+                // article.Title = input.Title;
+                // article.Content = input.Content;
+                // article.PublicationDate = input.PublicationDate;
+                // article.AuthorId = input.AuthorId;
+                // article.CategoryId = input.CategoryId;
+                // article.VersionId = input.VersionId; // Ensure this property is correctly set
+
+                // // Delete existing ArticleTags associated with this article
+                // var existingTags = await _articleTagRepository.GetListAsync(at => at.ArticleId == id);
+                // foreach (var tag in existingTags)
+                // {
+                //     await _articleTagRepository.DeleteAsync(tag);
+                // }
+
+                // // Add new ArticleTags
+                // foreach (var tagId in input.TagIds)
+                // {
+                //     var articleTag = new ArticleTag
+                //     {
+                //         ArticleId = id,
+                //         TagId = tagId
+                //     };
+
+                //     await _articleTagRepository.InsertAsync(articleTag);
+                // }
+
+                // // Save changes to the unit of work
+                // await CurrentUnitOfWork.SaveChangesAsync(); // Ensure all changes are saved
+
+                // // Map the updated article entity back to a DTO
+                // return ObjectMapper.Map<Article, ArticleDto>(article);
+                var article = await _articleRepository.GetAsync(id);
                 if (article == null)
                 {
                     throw new EntityNotFoundException(typeof(Article), id);
                 }
-
-                // Manually update each property to avoid issues with EF Core tracking
                 article.Title = input.Title;
                 article.Content = input.Content;
                 article.PublicationDate = input.PublicationDate;
                 article.AuthorId = input.AuthorId;
                 article.CategoryId = input.CategoryId;
-                article.VersionId = input.VersionId; // Ensure this property is correctly set
+                article.VersionId = input.VersionId;
 
-                // Delete existing ArticleTags associated with this article
                 var existingTags = await _articleTagRepository.GetListAsync(at => at.ArticleId == id);
                 foreach (var tag in existingTags)
                 {
-                    await _articleTagRepository.DeleteAsync(tag);
+                    if (!input.TagIds.Contains(tag.TagId))
+                    {
+                        await _articleTagRepository.DeleteAsync(tag);
+                    }
                 }
 
                 // Add new ArticleTags
                 foreach (var tagId in input.TagIds)
                 {
-                    var articleTag = new ArticleTag
+                    // Check if the tag already exists
+                    if (!existingTags.Any(et => et.TagId == tagId))
                     {
-                        ArticleId = id,
-                        TagId = tagId
-                    };
+                        var articleTag = new ArticleTag
+                        {
+                            ArticleId = id,
+                            TagId = tagId
+                        };
 
-                    await _articleTagRepository.InsertAsync(articleTag);
+                        await _articleTagRepository.InsertAsync(articleTag);
+                    }
                 }
-
-                // Save changes to the unit of work
-                await CurrentUnitOfWork.SaveChangesAsync(); // Ensure all changes are saved
-
-                // Map the updated article entity back to a DTO
+                await CurrentUnitOfWork.SaveChangesAsync(); 
                 return ObjectMapper.Map<Article, ArticleDto>(article);
 
             }

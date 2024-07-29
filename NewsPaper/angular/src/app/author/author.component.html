@@ -1,7 +1,7 @@
 <abp-page [title]="'::Menu:Authors' | abpLocalization">
   <abp-page-toolbar-container class="col">
     <div class="text-lg-end pt-2">
-      <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createAuthor()">
+      <button *abpPermission="'NewsPaper.Authors.Create'" class="btn btn-primary btn-sm" id="create" type="button" (click)="createAuthor()">
         <i class="fa fa-plus me-1"></i>
         {{ '::NewAuthor' | abpLocalization }}
       </button>

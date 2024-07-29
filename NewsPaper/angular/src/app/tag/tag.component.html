@@ -1,62 +1,64 @@
 <abp-page [title]="'::Menu:Tags' | abpLocalization">
-    <abp-page-toolbar-container class="col">
-      <div class="text-lg-end pt-2">
-        <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createTag()">
-          <i class="fa fa-plus me-1"></i>
-          {{ '::NewTag' | abpLocalization }}
-        </button>
-      </div>
-    </abp-page-toolbar-container>
-  
-    <div class="card">
-      <div class="card-body">
-        <ngx-datatable [rows]="tag.items" [count]="tag.totalCount" [list]="list" default>
-          <ngx-datatable-column [name]="'::Name' | abpLocalization" prop="name"></ngx-datatable-column>
-          <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-              <div ngbDropdown container="body" class="d-inline-block">
-                <button class="btn btn-primary btn-sm dropdown-toggle" aria-haspopup="true" ngbDropdownToggle>
-                  <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
-                </button>
-                <div ngbDropdownMenu>
-                  <button *abpPermission="'NewsPaper.Tags.Edit'" ngbDropdownItem (click)="editTag(row.id)">
-                    {{ '::Edit' | abpLocalization }}
-                  </button>
-                  <button *abpPermission="'NewsPaper.Tags.Delete'" ngbDropdownItem (click)="delete(row.id)">
-                    {{ '::Delete' | abpLocalization }}
-                  </button>
-                </div>
-              </div>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
-      </div>
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button class="btn btn-primary btn-sm" id="create" type="button" (click)="createTag()" *abpPermission="'NewsPaper.Tags.Create'">
+        <i class="fa fa-plus me-1"></i>
+        {{ '::NewTag' | abpLocalization }}
+      </button>
     </div>
-  </abp-page>
-  
-  <!-- Add the modal here -->
-  <abp-modal [(visible)]="isModalOpen">
-    <ng-template #abpHeader>
-      <h3>{{ (selectedTag.id ? '::EditTag' : '::NewTag') | abpLocalization }}</h3>
-    </ng-template>
-  
-    <ng-template #abpBody>
-      <form [formGroup]="form" (ngSubmit)="save()">
-        <div class="form-group">
-          <label for="tag-name">Name</label><span> * </span>
-          <input type="text" id="tag-name" class="form-control" formControlName="name" autofocus />
+  </abp-page-toolbar-container>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="tag.items" [count]="tag.totalCount" [list]="list" default>
+        <ngx-datatable-column [name]="'::Name' | abpLocalization" prop="name"></ngx-datatable-column>
+        <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button class="btn btn-primary btn-sm dropdown-toggle" aria-haspopup="true" ngbDropdownToggle>
+                <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
+              </button>
+              <div ngbDropdownMenu>
+                <button *abpPermission="'NewsPaper.Tags.Edit'" ngbDropdownItem (click)="editTag(row.id)">
+                  {{ '::Edit' | abpLocalization }}
+                </button>
+                <button *abpPermission="'NewsPaper.Tags.Delete'" ngbDropdownItem (click)="delete(row.id)">
+                  {{ '::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>{{ (selectedTag.id ? '::EditTag' : '::NewTag') | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="tag-name">Name</label><span> * </span>
+        <input type="text" id="tag-name" class="form-control" formControlName="name" autofocus />
+        <div *ngIf="form.get('name').touched && form.get('name').invalid">
+          <div *ngIf="form.get('name').errors.required" class="text-danger">Name is required</div>
+          <div *ngIf="form.get('name').errors.thereIsExist" class="text-danger">This name already exists</div>
         </div>
-      </form>
-    </ng-template>
-  
-    <ng-template #abpFooter>
-      <button type="button" class="btn btn-secondary" abpClose>
-        {{ '::Close' | abpLocalization }}
-      </button>
-      <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
-        <i class="fa fa-check me-1"></i>
-        {{ '::Save' | abpLocalization }}
-      </button>
-    </ng-template>
-  </abp-modal>
-  
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '::Close' | abpLocalization }}
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
+      <i class="fa fa-check me-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </ng-template>
+</abp-modal>

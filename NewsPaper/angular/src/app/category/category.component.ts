@@ -12,16 +12,15 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared'; // add
 })
 export class CategoryComponent implements OnInit {
   category = { items: [], totalCount: 0 } as PagedResultDto<CategoryDto>;
-
-  form: FormGroup; // add this line
+  form: FormGroup;
   isModalOpen = false;
-  selectedCategory = {} as CategoryDto; // declare selectedCategory
+  selectedCategory = {} as CategoryDto;
 
   constructor(
     public readonly list: ListService,
     private categoryService: CategoryService,
     private fb: FormBuilder,
-    private confirmation: ConfirmationService // inject the ConfirmationService
+    private confirmation: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -33,7 +32,7 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory() {
-    this.selectedCategory = {} as CategoryDto; // reset the selected category
+    this.selectedCategory = {} as CategoryDto;
     this.buildForm();
     this.isModalOpen = true;
   }
@@ -62,14 +61,22 @@ export class CategoryComponent implements OnInit {
       ? this.categoryService.update(this.selectedCategory.id, this.form.value)
       : this.categoryService.create(this.form.value);
 
-    request.subscribe(() => {
-      this.isModalOpen = false;
-      this.form.reset();
-      this.list.get();
+    request.subscribe({
+      next: () => {
+        this.isModalOpen = false;
+        this.form.reset();
+        this.list.get();
+      },
+      error: (error) => {
+        if (error.error && error.error.message === 'DuplicateCategoryName') {
+          this.form.get('name').setErrors({ duplicate: true });
+        } else {
+          alert(error.error.message || 'An error occurred. Please try again.');
+        }
+      }
     });
   }
 
-  // Add delete method
   delete(id: string) {
     this.confirmation.warn('::AreYouSureToDelete', '::AreYouSure').subscribe((status) => {
       if (status === Confirmation.Status.confirm) {

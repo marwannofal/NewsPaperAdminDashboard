@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListService, PagedResultDto } from '@abp/ng.core';
-import { EditionService, EditionDto } from '@proxy'; // ensure correct import path
-import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared'; // add new imports
+import { EditionService, EditionDto } from '@proxy';
+import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared';
 
 @Component({
   selector: 'app-edition',
@@ -12,16 +12,15 @@ import { ConfirmationService, Confirmation } from '@abp/ng.theme.shared'; // add
 })
 export class EditionComponent implements OnInit {
   editions = { items: [], totalCount: 0 } as PagedResultDto<EditionDto>;
-
-  form: FormGroup; // add this line
+  form: FormGroup;
   isModalOpen = false;
-  selectedEdition = {} as EditionDto; // declare selectedEdition
+  selectedEdition = {} as EditionDto;
 
   constructor(
     public readonly list: ListService,
     private editionService: EditionService,
     private fb: FormBuilder,
-    private confirmation: ConfirmationService // inject the ConfirmationService
+    private confirmation: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -33,7 +32,7 @@ export class EditionComponent implements OnInit {
   }
 
   createEdition() {
-    this.selectedEdition = {} as EditionDto; // reset the selected edition
+    this.selectedEdition = {} as EditionDto;
     this.buildForm();
     this.isModalOpen = true;
   }
@@ -65,14 +64,22 @@ export class EditionComponent implements OnInit {
       ? this.editionService.update(this.selectedEdition.id, this.form.value)
       : this.editionService.create(this.form.value);
 
-    request.subscribe(() => {
-      this.isModalOpen = false;
-      this.form.reset();
-      this.list.get();
+    request.subscribe({
+      next: () => {
+        this.isModalOpen = false;
+        this.form.reset();
+        this.list.get();
+      },
+      error: (error) => {
+        if (error.error && error.error.message === 'DuplicateEditionName') {
+          this.form.get('name').setErrors({ duplicate: true });
+        } else {
+          alert(error.error.message || 'An error occurred. Please try again.');
+        }
+      }
     });
   }
 
-  // Add delete method
   delete(id: string) {
     this.confirmation.warn('::AreYouSureToDelete', '::AreYouSure').subscribe((status) => {
       if (status === Confirmation.Status.confirm) {
