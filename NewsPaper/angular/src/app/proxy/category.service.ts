@@ -10,6 +10,15 @@ export class CategoryService {
   apiName = 'Default';
   
 
+  categoryNameExists = (name: string, existingCategoryId?: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: `/api/app/category/category-name-exists/${existingCategoryId}`,
+      params: { name },
+    },
+    { apiName: this.apiName,...config });
+  
+
   create = (input: CreateOrUpdateCategoryDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, CategoryDto>({
       method: 'POST',

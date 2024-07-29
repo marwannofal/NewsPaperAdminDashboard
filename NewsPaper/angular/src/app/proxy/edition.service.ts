@@ -27,6 +27,15 @@ export class EditionService {
     { apiName: this.apiName,...config });
   
 
+  editionNameExists = (name: string, existingEditionId?: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: `/api/app/edition/edition-name-exists/${existingEditionId}`,
+      params: { name },
+    },
+    { apiName: this.apiName,...config });
+  
+
   get = (id: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, EditionDto>({
       method: 'GET',

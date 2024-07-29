@@ -45,8 +45,12 @@ public class AuthorAppService :
             var author = authors.First(a => a.Id == authorDto.Id);
             var identityUser = identityUsers.First(u => u.Id == author.IdentityUserId);
 
+            
             authorDto.UserName = identityUser.UserName;
             authorDto.Email = identityUser.Email;
+            authorDto.FirstName = identityUser.Name;
+            authorDto.LastName = identityUser.Surname;
+            authorDto.PhoneNumber = identityUser.PhoneNumber;
         }
 
         return result;
@@ -65,6 +69,9 @@ public class AuthorAppService :
         {
             authorDto.UserName = identityUser.UserName;
             authorDto.Email = identityUser.Email;
+            authorDto.FirstName = identityUser.Name;
+            authorDto.LastName = identityUser.Surname;
+            authorDto.PhoneNumber = identityUser.PhoneNumber;
         }
 
         return authorDto;

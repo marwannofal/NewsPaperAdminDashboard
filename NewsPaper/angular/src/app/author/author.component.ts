@@ -36,6 +36,8 @@ export class AuthorComponent implements OnInit {
     this.list.hookToQuery(authorStreamCreator).subscribe((response) => {
       this.authors = response;
     });
+
+    this.buildForm();
   }
 
   getUserIdFromToken(): string {
@@ -156,15 +158,34 @@ export class AuthorComponent implements OnInit {
   }
 
   editAuthor(id: string) {
-    this.authorService.get(id).subscribe((author) => {
-      this.selectedAuthor = author;
+  this.authorService.get(id).subscribe((author) => {
+    if (!author) {
+      console.error('Author not found:', id);
+      return;
+    }
+    this.selectedAuthor = author;
+    this.buildForm(); // Ensure the form is built
+
+    if (this.form) {
       this.form.patchValue({
+        userName: author.userName,
+        name: author.firstName,
+        surname: author.lastName,
+        email: author.email,
+        phoneNumber: author.phoneNumber,
+        password: '', 
         fullName: author.fullName,
         bio: author.bio,
       });
-      this.isModalOpen = true;
-    });
-  }
+    } else {
+      console.error('Form not initialized');
+    }
+
+    this.isModalOpen = true;
+  }, error => {
+    console.error('Error fetching author:', error);
+  });
+}
 
   delete(id: string) {
     this.confirmation.warn('::AreYouSureToDelete', '::AreYouSure').subscribe((status) => {

@@ -44,6 +44,15 @@ export class TagService {
     { apiName: this.apiName,...config });
   
 
+  tagNameExists = (name: string, existingTagId?: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, boolean>({
+      method: 'POST',
+      url: `/api/app/tag/tag-name-exists/${existingTagId}`,
+      params: { name },
+    },
+    { apiName: this.apiName,...config });
+  
+
   update = (id: string, input: CreateOrUpdateTagDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, TagDto>({
       method: 'PUT',

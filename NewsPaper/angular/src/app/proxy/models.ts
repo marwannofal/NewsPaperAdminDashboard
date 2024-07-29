@@ -19,6 +19,9 @@ export interface AuthorDto extends FullAuditedEntityDto<string> {
   bio?: string;
   userName?: string;
   email?: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
 }
 
 export interface CategoryDto extends FullAuditedEntityDto<string> {
