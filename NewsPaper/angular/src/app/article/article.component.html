@@ -10,7 +10,7 @@
 
   <div class="card">
     <div class="card-body">
-      <ngx-datatable [rows]="articles$ | async" [count]="articleTotalCount" default>
+      <ngx-datatable [rows]="articles.items" [count]="articles.totalCount" [list]="list" default>
         <ngx-datatable-column [name]="'::Title' | abpLocalization" prop="title"></ngx-datatable-column>
         <ngx-datatable-column [name]="'::PublicationDate' | abpLocalization" prop="publicationDate">
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -116,9 +116,9 @@
 
       <div class="form-group mt-2" (document:click)="closeDropdown($event)">
         <label for="article-tags">{{ '::Tags' | abpLocalization }}</label><span> * </span>
-        <div class="dropdown" [ngClass]="{'show': isDropdownOpen}">
+        <div class="dropdown" [ngClass]="{'show': isDropdownOpen}" >
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" (click)="toggleDropdown($event)">
-            Select Tags
+            {{ '::Select Tags' | abpLocalization }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'show': isDropdownOpen}">
             <li *ngFor="let tag of (tags$ | async)">

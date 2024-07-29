@@ -43,7 +43,8 @@ namespace NewsPaper;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
 )]
-public class NewsPaperHttpApiHostModule : AbpModule
+[DependsOn(typeof(AbpLocalizationModule))]
+    public class NewsPaperHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

@@ -47,7 +47,7 @@
   <ng-template #abpBody>
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="form-group">
-        <label for="edition-name">Name</label><span> * </span>
+        <label for="edition-name">{{ '::Name' | abpLocalization }}</label><span> * </span>
         <input type="text" id="edition-name" class="form-control" formControlName="name" autofocus />
         <div *ngIf="form.get('name').touched && form.get('name').invalid">
           <div *ngIf="form.get('name').errors?.required" class="text-danger">Name is required</div>
@@ -56,7 +56,7 @@
       </div>
 
       <div class="form-group mt-2">
-        <label for="edition-publicationDate">Publication Date</label><span> * </span>
+        <label for="edition-publicationDate">{{ '::PublicationDate' | abpLocalization }}</label><span> * </span>
         <input
           type="date"
           id="edition-publicationDate"

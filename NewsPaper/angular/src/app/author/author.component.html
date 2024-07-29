@@ -47,7 +47,7 @@
   <ng-template #abpBody>
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="form-group">
-        <label for="user-userName">Username</label><span> * </span>
+        <label for="user-userName">{{ '::userName' | abpLocalization }}</label><span> * </span>
         <input type="text" id="user-userName" class="form-control" formControlName="userName" autofocus />
         <div *ngIf="form.get('userName').invalid && (form.get('userName').dirty || form.get('userName').touched)" class="text-danger">
           <div *ngIf="form.get('userName').errors.required">Username is required.</div>
@@ -56,17 +56,17 @@
       </div>
 
       <div class="form-group mt-2">
-        <label for="user-name"> first Name</label><span> * </span>
+        <label for="user-name">{{ '::First Name' | abpLocalization }}</label><span> * </span>
         <input type="text" id="user-name" class="form-control" formControlName="name" />
       </div>
 
       <div class="form-group mt-2">
-        <label for="user-surname">Last Name</label><span> * </span>
+        <label for="user-surname">{{ '::Last Name' | abpLocalization }}</label><span> * </span>
         <input type="text" id="user-surname" class="form-control" formControlName="surname" />
       </div>
 
       <div class="form-group mt-2">
-        <label for="user-email">Email</label><span> * </span>
+        <label for="user-email">{{ '::Email' | abpLocalization }}</label><span> * </span>
         <input type="email" id="user-email" class="form-control" formControlName="email" />
         <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)" class="text-danger">
           <div *ngIf="form.get('email').errors.required">Email is required.</div>
@@ -75,12 +75,12 @@
       </div>
 
       <div class="form-group mt-2">
-        <label for="user-phoneNumber">Phone Number</label><span> * </span>
+        <label for="user-phoneNumber">{{ '::Phone Number' | abpLocalization }}</label><span> * </span>
         <input type="text" id="user-phoneNumber" class="form-control" formControlName="phoneNumber" />
       </div>
 
       <div class="form-group mt-2">
-        <label for="user-password">Password</label><span> * </span>
+        <label for="user-password">{{ '::Password' | abpLocalization }}</label><span> * </span>
         <input type="password" id="user-password" class="form-control" formControlName="password" />
         <div *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)" class="text-danger">
           <div *ngIf="form.get('password').errors.required">Password is required.</div>
@@ -92,12 +92,12 @@
       <hr />
 
       <div class="form-group mt-2">
-        <label for="author-fullName">Full Name</label><span> * </span>
+        <label for="author-fullName">{{ '::FullName' | abpLocalization }}</label><span> * </span>
         <input type="text" id="author-fullName" class="form-control" formControlName="fullName" />
       </div>
 
       <div class="form-group mt-2">
-        <label for="author-bio">Bio</label><span> * </span>
+        <label for="author-bio">{{ '::Bio' | abpLocalization }}</label><span> * </span>
         <input type="text" id="author-bio" class="form-control" formControlName="bio" />
       </div>
     </form>

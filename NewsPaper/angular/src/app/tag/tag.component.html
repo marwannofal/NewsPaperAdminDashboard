@@ -42,7 +42,7 @@
   <ng-template #abpBody>
     <form [formGroup]="form" (ngSubmit)="save()">
       <div class="form-group">
-        <label for="tag-name">Name</label><span> * </span>
+        <label for="tag-name">{{ '::Name' | abpLocalization }}</label><span> * </span>
         <input type="text" id="tag-name" class="form-control" formControlName="name" autofocus />
         <div *ngIf="form.get('name').touched && form.get('name').invalid">
           <div *ngIf="form.get('name').errors.required" class="text-danger">Name is required</div>
