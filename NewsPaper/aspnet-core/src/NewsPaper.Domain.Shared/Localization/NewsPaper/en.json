@@ -5,6 +5,7 @@
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Permission:NewsPaper": "News Paper",
+    
     "Permission:Categories": "Categoy Management",
     "Permission:Categories.Create": "Creating new Categories",
     "Permission:Categories.Edit": "Editing the Categories",
@@ -28,7 +29,31 @@
     "Permission:Articles": "Article Management",
     "Permission:Articles.Create": "Creating new Articles",
     "Permission:Articles.Edit": "Editing the Articles",
-    "Permission:Articles.Delete": "Deleting the Articles"
+    "Permission:Articles.Delete": "Deleting the Articles",
+  
+    "Menu:NewsPaper" : "News Paper",
+    "Menu:Categories" : "Categories",
+    "NewCategory" : "New Category",
+    "EditCategory" : "Edit Category",
+    "AreYouSureToDelete" : "Are You Sure To Delete",
+
+    "Menu:Tags" : "Tags",
+    "NewTag" : "New Tag",
+    "EditTag" : "Edit Tag",
+
+    "Menu:Editions" : "Editions",
+    "NewEdition" : "New Edition",
+    "EditEdition" : "Edit Edition",
+
+    "Menu:Authors" : "Authors",
+    "NewAuthor" : "New Author",
+    "EditAuthor" : "Edit Author",
+
+    "Menu:Articles" : "Articles",
+    "NewArticle" : "New Article",
+    "EditArticle" : "Edit Article"
+
+
     
     
   }

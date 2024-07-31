@@ -7,7 +7,7 @@ export const environment = {
   application: {
     baseUrl,
     name: 'NewsPaper',
-    logoUrl: '',
+    logoUrl: 'assets/Images/logo/logoNews.png',
   },
   oAuthConfig: {
     issuer: 'https://localhost:44347/',

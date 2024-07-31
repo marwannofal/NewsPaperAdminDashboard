@@ -20,9 +20,11 @@
               </button>
               <div ngbDropdownMenu>
                 <button *abpPermission="'NewsPaper.Tags.Edit'" ngbDropdownItem (click)="editTag(row.id)">
+                  <i class="bi bi-pencil"></i>
                   {{ '::Edit' | abpLocalization }}
                 </button>
                 <button *abpPermission="'NewsPaper.Tags.Delete'" ngbDropdownItem (click)="delete(row.id)">
+                  <i class="bi bi-trash"></i>
                   {{ '::Delete' | abpLocalization }}
                 </button>
               </div>
@@ -54,6 +56,7 @@
 
   <ng-template #abpFooter>
     <button type="button" class="btn btn-secondary" abpClose>
+      <i class="bi bi-x-circle"></i>
       {{ '::Close' | abpLocalization }}
     </button>
     <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">

@@ -17,6 +17,12 @@ import { AbpOAuthModule } from '@abp/ng.oauth';
 import { ThemeLeptonXModule } from '@abp/ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@abp/ng.theme.lepton-x/layouts';
 import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { provideCharts  } from 'ng2-charts';
+
+
 
 @NgModule({
   imports: [
@@ -42,8 +48,12 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
     SideMenuLayoutModule.forRoot(),
     AccountLayoutModule.forRoot(),
   ],
-  declarations: [AppComponent],
-  providers: [APP_ROUTE_PROVIDER],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    DashboardComponent
+  ],
+  providers: [APP_ROUTE_PROVIDER, provideAnimationsAsync(), provideCharts() ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

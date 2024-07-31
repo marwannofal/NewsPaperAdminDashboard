@@ -9,8 +9,9 @@
   }
 }
 :root  {
-  --lpx-logo: url('/assets/images/logo/logo-light.png');
-  --lpx-logo-icon: url('/assets/images/logo/logo-light-thumbnail.png');
+  --lpx-logo: url('assets/images/logo/newsLogo.png');
+  --lpx-logo-icon: url('assets/images/logo/newsLogo.png');
+  --lpx-brand: #1fc135;
 }
 .donut {
   display: inline-block;
@@ -29,3 +30,9 @@
   }
 
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+

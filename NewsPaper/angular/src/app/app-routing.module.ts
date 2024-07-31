@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'Editions', loadChildren: () => import('./edition/edition.module').then(m => m.EditionModule) },
   { path: 'Authors', loadChildren: () => import('./author/author.module').then(m => m.AuthorModule) },
   { path: 'Articles', loadChildren: () => import('./article/article.module').then(m => m.ArticleModule) },
+  { path: 'dashboards', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
 ];
 
 @NgModule({

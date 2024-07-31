@@ -11,7 +11,7 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/',
         name: '::Menu:Home',
-        iconClass: 'fas fa-home',
+        iconClass: 'fa fa-tachometer',
         order: 1,
         layout: eLayoutType.application,
       },
@@ -33,6 +33,7 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/Categories',
         name: '::Menu:Categories',
+        iconClass: 'bi bi-collection',
         parentName: '::Menu:NewsPaper',
         layout: eLayoutType.application,
         requiredPolicy: 'NewsPaper.Categories'
@@ -41,12 +42,14 @@ function configureRoutes(routes: RoutesService) {
         path: '/Tags',
         name: '::Menu:Tags',
         parentName: '::Menu:NewsPaper',
+        iconClass: 'bi bi-tag',
         layout: eLayoutType.application,
         requiredPolicy: 'NewsPaper.Tags',
       },
       {
         path: '/Editions',
         name: '::Menu:Editions',
+        iconClass: 'bi bi-files',
         parentName: '::Menu:NewsPaper',
         layout: eLayoutType.application,
         requiredPolicy: 'NewsPaper.Editions',
@@ -54,6 +57,7 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/Authors',
         name: '::Menu:Authors',
+        iconClass: 'bi bi-file-person',
         parentName: '::Menu:NewsPaper',
         layout: eLayoutType.application,
         requiredPolicy: 'NewsPaper.Authors',
@@ -61,6 +65,7 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/Articles',
         name: '::Menu:Articles',
+        iconClass: 'bi bi-file-post',
         parentName: '::Menu:NewsPaper',
         layout: eLayoutType.application,
         requiredPolicy: 'NewsPaper.Articles',
