@@ -28,7 +28,6 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
-
 namespace NewsPaper;
 
 [DependsOn(
@@ -69,6 +68,14 @@ namespace NewsPaper;
         ConfigureVirtualFileSystem(context);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+
+        Configure<AbpLocalizationOptions>(options =>
+        {
+            options.Languages.Clear(); // Remove all languages
+            options.Languages.Add(new LanguageInfo("en", "en", "English")); // Add only the desired language(s)
+            options.Languages.Add(new LanguageInfo("ar", "ar", "العربية")); // Add only the desired language(s)
+            
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

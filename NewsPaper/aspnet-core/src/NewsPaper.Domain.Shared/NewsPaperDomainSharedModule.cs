@@ -34,7 +34,7 @@ public class NewsPaperDomainSharedModule : AbpModule
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
-    {
+    { 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {
             options.FileSets.AddEmbedded<NewsPaperDomainSharedModule>();
@@ -48,10 +48,6 @@ public class NewsPaperDomainSharedModule : AbpModule
                 .AddVirtualJson("/Localization/NewsPaper");
 
             options.DefaultResourceType = typeof(NewsPaperResource);
-
-            // Remove unwanted languages
-            options.Languages.RemoveAll(language =>
-                language.CultureName == "fr" || language.CultureName == "es");
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
