@@ -48,6 +48,10 @@ public class NewsPaperDomainSharedModule : AbpModule
                 .AddVirtualJson("/Localization/NewsPaper");
 
             options.DefaultResourceType = typeof(NewsPaperResource);
+
+            // Remove unwanted languages
+            options.Languages.RemoveAll(language =>
+                language.CultureName == "fr" || language.CultureName == "es");
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
