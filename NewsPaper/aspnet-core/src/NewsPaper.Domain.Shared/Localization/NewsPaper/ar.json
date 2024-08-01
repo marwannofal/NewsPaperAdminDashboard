@@ -3,7 +3,6 @@
   "texts": {
     "Menu:Home": "الصفحة الرئيسية",
     "Welcome": "مرحباً",
-    "LongWelcomeMessage": "مرحبا بكم في التطبيق. هذا مشروع بدء تشغيل يعتمد على إطار عمل ABP. لمزيد من المعلومات ، يرجى زيارة abp.io.",
     "Menu:NewsPaper": "صفحة الجريدة",
     "Menu:Articles" : "صفحة المقالات",
     "NewArticle" : "مقال جديد",
@@ -41,6 +40,21 @@
     "Menu:Categories" : "صفحة التصنيفات",
     "EditCategory":"تعديل التصنيف",
     "NewCategory" : "تصنيف جديد",
-    "Description" : "الوصف"
+    "Description" : "الوصف",
+
+    "Menu:Dashboard" : "لوحة التحكم",
+    "Manage Tags" : "تحكم بالأوسمة",
+    "Manage Editions" : "تحكم يالإصدارات",
+    "Manage Articles" : "تحكم بالمقالات",
+    "Manage Categories" : "تحكم يالتصنيفات",
+    "Manage Authors" : "تحكم بالمؤلفون",
+    "Editions" : "الإصدارات",
+    "Articles" : "المقالات",
+    "Categories" : "التصنيفات",
+    "Authors" : "المؤلفون",
+    "Articles List": "قائمة المقالات" ,
+    "Articles by Author" : "عدد المقالات",
+    "Articles Published" : "المقالات المنشورة",
+    "Number of Articles" : "عدد المقالات"
   }
 }

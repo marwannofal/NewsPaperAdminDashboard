@@ -71,7 +71,6 @@ namespace NewsPaper
 
             return articleDto;
         }
-
         [UnitOfWork]
         public override async Task<PagedResultDto<ArticleDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {

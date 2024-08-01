@@ -1,56 +1,125 @@
 <div class="container-fluid mt-4">
-    <!-- First Row -->
-    <div class="row justify-content-center text-center">
-      <div class="col-md-4 mb-4">
+    <div class="d-flex justify-content-start text-center">
+      <div class="col-md-4 ms-5 mb-4">
         <div class="card text-center border-0 shadow-sm h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-primary">Articles</h5>
+            <h5 class="card-title text-primary">{{ '::Articles' | abpLocalization }}</h5>
             <h2 class="card-text flex-grow-1">{{ articlesCount$ | async }}</h2>
-            <p class="text-muted mb-4">Manage Articles</p>
-            <a routerLink="/Articles" class="btn btn-outline-primary btn-sm mt-auto">Manage Articles</a>
+            <p class="text-muted mb-4"><i class="bi bi-file-post"></i> {{ '::Manage Articles' | abpLocalization }}</p>
+            <a routerLink="/Articles" class="btn btn-outline-primary btn-sm mt-auto">{{ '::Manage Articles' | abpLocalization }}</a>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ms-4 mb-4">
         <div class="card text-center border-0 shadow-sm h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-info">Authors</h5>
+            <h5 class="card-title text-info">{{ '::Authors' | abpLocalization }}</h5>
             <h2 class="card-text flex-grow-1">{{ authorsCount$ | async }}</h2>
-            <p class="text-muted mb-4">Manage Authors</p>
-            <a routerLink="/Authors" class="btn btn-outline-info btn-sm mt-auto">Manage Authors</a>
+            <p class="text-muted mb-4"><i class="bi bi-file-person"></i> {{ '::Manage Authors' | abpLocalization }}</p>
+            <a routerLink="/Authors" class="btn btn-outline-info btn-sm mt-auto">{{ '::Manage Authors' | abpLocalization }}</a>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ms-4 mb-4">
         <div class="card text-center border-0 shadow-sm h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-success">Categories</h5>
+            <h5 class="card-title text-success">{{ '::Categories' | abpLocalization}}</h5>
             <h2 class="card-text flex-grow-1">{{ categoriesCount$ | async }}</h2>
-            <p class="text-muted mb-4">Manage Categories</p>
-            <a routerLink="/Categories" class="btn btn-outline-success btn-sm mt-auto">Manage Categories</a>
+            <p class="text-muted mb-4"><i class="bi bi-collection"></i> {{ '::Manage Categories' | abpLocalization}}</p>
+            <a routerLink="/Categories" class="btn btn-outline-success btn-sm mt-auto">{{ '::Manage Categories' | abpLocalization}}</a>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ms-4 mb-4">
         <div class="card text-center border-0 shadow-sm h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-dark">Tags</h5>
+            <h5 class="card-title text-dark">{{ '::Tags' | abpLocalization }}</h5>
             <h2 class="card-text flex-grow-1">{{ tagsCount$ | async }}</h2>
-            <p class="text-muted mb-4">Manage Tags</p>
-            <a routerLink="/Tags" class="btn btn-outline-dark btn-sm mt-auto">Manage Tags</a>
+            <p class="text-muted mb-4"><i class="bi bi-tag"></i> {{ '::Manage Tags' | abpLocalization}}</p>
+            <a routerLink="/Tags" class="btn btn-outline-dark btn-sm mt-auto">{{ '::Manage Tags' | abpLocalization}}</a>
           </div>
         </div>
       </div>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-4 ms-4 mb-4">
         <div class="card text-center border-0 shadow-sm h-100">
           <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-warning">Editions</h5>
+            <h5 class="card-title text-warning">{{'::Editions' | abpLocalization }}</h5>
             <h2 class="card-text flex-grow-1">{{ editionsCount$ | async }}</h2>
-            <p class="text-muted mb-4">Manage Editions</p>
-            <a routerLink="/Editions" class="btn btn-outline-warning btn-sm mt-auto">Manage Editions</a>
+            <p class="text-muted mb-4"><i class="bi bi-files"></i> {{ '::Manage Editions' | abpLocalization}}</p>
+            <a routerLink="/Editions" class="btn btn-outline-warning btn-sm mt-auto">{{ '::Manage Editions' | abpLocalization}}</a>
           </div>
         </div>
       </div>
     </div>
 </div>
-  
+
+
+<div class="container-fluid mt-4">
+  <div class="d-flex justify-content-start text-center">
+      <!-- First Chart -->
+      <div class="col-md-6 ms-5 mb-4">
+          <canvas baseChart 
+                  [data]="chartData" 
+                  [options]="chartOptions" 
+                  [legend]="true" 
+                  [type]="'bar'">
+          </canvas>
+      </div>
+      <!-- Second Chart -->
+      <div class="col-md-6 ms-5 mb-4 border-0">
+          <canvas baseChart 
+                  [data]="authorsChartData" 
+                  [options]="chartOptions" 
+                  [legend]="true" 
+                  [type]="'bar'">
+          </canvas>
+      </div>  
+      <div class="col-md-6 ms-5 mb-4 border-0">
+        <canvas baseChart 
+                [data]="articlesTagsChartData" 
+                [options]="chartOptions" 
+                [type]="'polarArea'">
+        </canvas>
+      </div>
+  </div>
+</div>
+
+<!-- Articles List -->
+<div class="container-fluid mt-4" id="Articles_List">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{ '::Articles List' | abpLocalization }}</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>{{ '::Title' | abpLocalization }}</th>
+                <th>{{ '::Author' | abpLocalization }}</th>
+                <th>{{ '::PublicationDate' | abpLocalization }}</th>
+                <th>{{ '::CategoryName' | abpLocalization }}</th>
+                <th>{{ '::EditionName' | abpLocalization }}</th>
+                <th>{{ '::Tags' | abpLocalization }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let article of articles$ | async">
+                <td>{{ article.title }}</td>
+                <td>{{ article.authorName }}</td>
+                <td>{{ article.publicationDate | date: 'mediumDate' }}</td>
+                <td>{{ article.categoryName }}</td>
+                <td>{{ article.editionName }}</td>
+                <td>
+                  <span *ngFor="let tag of article.tagNames" class="badge bg-primary me-1">{{ tag }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

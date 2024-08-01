@@ -20,8 +20,7 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { provideCharts  } from 'ng2-charts';
-
+import { provideCharts, withDefaultRegisterables, BaseChartDirective  } from 'ng2-charts';
 
 
 @NgModule({
@@ -29,6 +28,7 @@ import { provideCharts  } from 'ng2-charts';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    BaseChartDirective,
     CoreModule.forRoot({
       environment,
       registerLocaleFn: registerLocale(),
@@ -53,7 +53,13 @@ import { provideCharts  } from 'ng2-charts';
     HomeComponent,
     DashboardComponent
   ],
-  providers: [APP_ROUTE_PROVIDER, provideAnimationsAsync(), provideCharts() ],
-  bootstrap: [AppComponent],
+  providers: [
+    APP_ROUTE_PROVIDER, 
+    provideAnimationsAsync(), 
+    provideCharts(withDefaultRegisterables()),
+  ],
+  bootstrap: [
+    AppComponent
+  ],
 })
 export class AppModule {}

@@ -10,14 +10,14 @@ function configureRoutes(routes: RoutesService) {
     routes.add([
       {
         path: '/',
-        name: '::Menu:Home',
+        name: '::Menu:Dashboard',
         iconClass: 'fa fa-tachometer',
         order: 1,
         layout: eLayoutType.application,
       },
       {
-        path: '/dashboard',
-        name: '::Menu:Dashboard',
+        path: '/Home',
+        name: '::Menu:Home',
         iconClass: 'fas fa-chart-line',
         order: 2,
         layout: eLayoutType.application,

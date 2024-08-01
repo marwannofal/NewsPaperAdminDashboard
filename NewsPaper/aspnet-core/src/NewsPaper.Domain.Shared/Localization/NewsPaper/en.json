@@ -51,7 +51,9 @@
 
     "Menu:Articles" : "Articles",
     "NewArticle" : "New Article",
-    "EditArticle" : "Edit Article"
+    "EditArticle" : "Edit Article",
+
+    "Menu:Dashboard" : "Dashboard"
 
 
     

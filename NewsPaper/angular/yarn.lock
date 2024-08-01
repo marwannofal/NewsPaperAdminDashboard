@@ -1625,6 +1625,25 @@
   resolved "https://registry.npmjs.org/@eslint/js/-/js-8.57.0.tgz"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
+"@floating-ui/core@^1.2.6":
+  version "1.6.5"
+  resolved "https://registry.npmjs.org/@floating-ui/core/-/core-1.6.5.tgz"
+  integrity sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==
+  dependencies:
+    "@floating-ui/utils" "^0.2.5"
+
+"@floating-ui/dom@~1.2.8":
+  version "1.2.9"
+  resolved "https://registry.npmjs.org/@floating-ui/dom/-/dom-1.2.9.tgz"
+  integrity sha512-sosQxsqgxMNkV3C+3UqTS6LxP7isRLwX8WMepp843Rb3/b0Wz8+MdUkxJksByip3C2WwLugLHN1b4ibn//zKwQ==
+  dependencies:
+    "@floating-ui/core" "^1.2.6"
+
+"@floating-ui/utils@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.5.tgz"
+  integrity sha512-sTcG+QZ6fdEUObICavU+aB3Mp8HY4n14wYHdxK4fXjPmv3PXZZeY5RaguJmGyeH/CJQhX3fqKUtS4qc1LoHwhQ==
+
 "@fortawesome/fontawesome-free@^5.15.4":
   version "5.15.4"
   resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz"
@@ -3229,6 +3248,29 @@
   resolved "https://registry.npmjs.org/@vitejs/plugin-basic-ssl/-/plugin-basic-ssl-1.1.0.tgz"
   integrity sha512-wO4Dk/rm8u7RNhOf95ZzcEmC9rYOncYgvq4z3duaJrCgjN8BxAnDVyndanfcJZ0O6XZzHz6Q0hTimxTg8Y9g/A==
 
+"@volo/abp.commercial.ng.ui@~8.2.1":
+  version "8.2.1"
+  resolved "https://registry.npmjs.org/@volo/abp.commercial.ng.ui/-/abp.commercial.ng.ui-8.2.1.tgz"
+  integrity sha512-74vZSUMDOe4Fv6rhx28cB9OPCaG2ExJqBfuOg7HP5BkIi+z9lSvumnVcjITrn6181+XD8TKdPLHne5nbZdyPHA==
+  dependencies:
+    "@abp/ng.theme.shared" "~8.2.1"
+    tslib "^2.0.0"
+
+"@volo/abp.ng.account.core@~8.2.1":
+  version "8.2.1"
+  resolved "https://registry.npmjs.org/@volo/abp.ng.account.core/-/abp.ng.account.core-8.2.1.tgz"
+  integrity sha512-ktTvkGkjdHINdvdpxewLy0IwBbQhrjdBAuctTjzLEqUy78BWXWY1UKsvtHBRkSjNTSQLvDaBfY2fpQIXK2OiVg==
+  dependencies:
+    tslib "^2.0.0"
+
+"@volo/abp.ng.lepton-x.core@~3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@volo/abp.ng.lepton-x.core/-/abp.ng.lepton-x.core-3.2.1.tgz"
+  integrity sha512-uSA4Sc7n5o4Wx9EStD3tWf4pzy30MTtYHAdbdlaanbifQdDdrebTIL/fglnK01PdLwNTP9FTyoTmzqDXY8nqWQ==
+  dependencies:
+    "@volo/ngx-lepton-x.core" "3.2.1"
+    tslib "^2.3.0"
+
 "@volo/abp.ng.lepton-x.core@3.2.0":
   version "3.2.0"
   resolved "https://registry.npmjs.org/@volo/abp.ng.lepton-x.core/-/abp.ng.lepton-x.core-3.2.0.tgz"
@@ -3246,6 +3288,15 @@
     ts-toolbelt "^6.15.4"
     tslib "^2.3.0"
 
+"@volo/ngx-lepton-x.core@3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@volo/ngx-lepton-x.core/-/ngx-lepton-x.core-3.2.1.tgz"
+  integrity sha512-+9Eh0sRJ8NODc32NsuO5tN9x5vqFa4832qHYKXv5XtLrl7ASyt42lGAQrPqZlUli5PLTWvOn4Ony2+ABm7tqJA==
+  dependencies:
+    perfect-scrollbar "^1.0.0"
+    ts-toolbelt "^6.15.4"
+    tslib "^2.3.0"
+
 "@volo/ngx-lepton-x.lite@3.2.0":
   version "3.2.0"
   resolved "https://registry.npmjs.org/@volo/ngx-lepton-x.lite/-/ngx-lepton-x.lite-3.2.0.tgz"
@@ -3254,6 +3305,30 @@
     "@ng-bootstrap/ng-bootstrap" "~16.0.0"
     "@volo/ngx-lepton-x.core" "3.2.0"
     bootstrap-icons "~1.7.2"
+    tslib "^2.3.0"
+
+"@volosoft/abp.ng.theme.lepton-x@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@volosoft/abp.ng.theme.lepton-x/-/abp.ng.theme.lepton-x-3.2.1.tgz"
+  integrity sha512-2VZpcQulu8y5cvOpefJlWtdwMyPdeVm6e7WZAXtEQPGkoVTS3mIUtX/AN3OV4i5QQ2/42yfK1HdiRM4wClHxSg==
+  dependencies:
+    "@abp/ng.theme.shared" "~8.2.1"
+    "@ng-bootstrap/ng-bootstrap" "~16.0.0"
+    "@volo/abp.commercial.ng.ui" "~8.2.1"
+    "@volo/abp.ng.account.core" "~8.2.1"
+    "@volo/abp.ng.lepton-x.core" "~3.2.1"
+    "@volosoft/ngx-lepton-x" "~3.2.1"
+    tslib "^2.3.0"
+
+"@volosoft/ngx-lepton-x@~3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@volosoft/ngx-lepton-x/-/ngx-lepton-x-3.2.1.tgz"
+  integrity sha512-h3hpfx4VqhuJTlWzMWXBoNwFZ6moPeiB4ifdh2z74xZUH/HEgYXAC0+snzqgWSNejZKzNX7vAmiap+PxsApZKA==
+  dependencies:
+    "@floating-ui/dom" "~1.2.8"
+    "@volo/ngx-lepton-x.core" "3.2.1"
+    bootstrap-icons "~1.7.2"
+    perfect-scrollbar "^1.5.5"
     tslib "^2.3.0"
 
 "@webassemblyjs/ast@^1.11.5", "@webassemblyjs/ast@1.12.1":
@@ -7099,6 +7174,40 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+"NewsPaper@file:":
+  version "0.0.0"
+  resolved "file:"
+  dependencies:
+    "@abp/ng.account" "~8.2.1"
+    "@abp/ng.components" "~8.2.1"
+    "@abp/ng.core" "^8.2.1"
+    "@abp/ng.identity" "~8.2.1"
+    "@abp/ng.oauth" "~8.2.1"
+    "@abp/ng.setting-management" "~8.2.1"
+    "@abp/ng.tenant-management" "~8.2.1"
+    "@abp/ng.theme.lepton-x" "^3.1.5"
+    "@abp/ng.theme.shared" "^8.2.1"
+    "@angular/animations" "~17.3.0"
+    "@angular/cdk" "^17.3.10"
+    "@angular/common" "~17.3.0"
+    "@angular/compiler" "~17.3.0"
+    "@angular/core" "~17.3.0"
+    "@angular/forms" "~17.3.0"
+    "@angular/localize" "~17.3.0"
+    "@angular/material" "^17.3.10"
+    "@angular/platform-browser" "~17.3.0"
+    "@angular/platform-browser-dynamic" "~17.3.0"
+    "@angular/router" "~17.3.0"
+    "@volosoft/abp.ng.theme.lepton-x" "^3.2.1"
+    bootstrap-icons "^1.11.3"
+    chart.js "^4.4.3"
+    d3 "^7.9.0"
+    NewsPaper "file:"
+    ng2-charts "^6.0.1"
+    rxjs "~7.8.0"
+    tslib "^2.0.0"
+    zone.js "~0.14.0"
+
 ng-zorro-antd@^17.0.0:
   version "17.4.1"
   resolved "https://registry.npmjs.org/ng-zorro-antd/-/ng-zorro-antd-17.4.1.tgz"
@@ -7704,7 +7813,7 @@ path-type@^4.0.0:
   resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-perfect-scrollbar@^1.0.0:
+perfect-scrollbar@^1.0.0, perfect-scrollbar@^1.5.5:
   version "1.5.5"
   resolved "https://registry.npmjs.org/perfect-scrollbar/-/perfect-scrollbar-1.5.5.tgz"
   integrity sha512-dzalfutyP3e/FOpdlhVryN4AJ5XDVauVWxybSkLZmakFE2sS3y3pc4JnSprw8tGmHvkaG5Edr5T7LBTZ+WWU2g==
