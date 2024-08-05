@@ -1,7 +1,7 @@
  <abp-page [title]="'::Menu:Articles' | abpLocalization">
   <abp-page-toolbar-container class="col">
     <div class="text-lg-end pt-2">
-      <button *abpPermission="'NewsPaper.Articles.Create'" class="btn btn-primary btn-sm" id="create" type="button" (click)="createArticle()">
+      <button *abpPermission="'NewsPaper.Articles.Create'" class="btn btn-sm" id="create" type="button" (click)="createArticle()">
         <i class="fa fa-plus me-1"></i>
         {{ '::NewArticle' | abpLocalization }}
       </button>
@@ -28,7 +28,7 @@
         <ngx-datatable-column [name]="'::Actions' | abpLocalization" [maxWidth]="150" [sortable]="false">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <div ngbDropdown container="body" class="d-inline-block">
-              <button class="btn btn-primary btn-sm dropdown-toggle" aria-haspopup="true" ngbDropdownToggle>
+              <button class="btn btn-sm dropdown-toggle" id="Actions" aria-haspopup="true" ngbDropdownToggle>
                 <i class="fa fa-cog me-1"></i>{{ '::Actions' | abpLocalization }}
               </button>
               <div ngbDropdownMenu>
@@ -119,7 +119,7 @@
       <div class="form-group mt-2" (document:click)="closeDropdown($event)">
         <label for="article-tags">{{ '::Tags' | abpLocalization }}</label><span> * </span>
         <div class="dropdown" [ngClass]="{'show': isDropdownOpen}" >
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" (click)="toggleDropdown($event)">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" (click)="toggleDropdown($event)">
             {{ '::Select Tags' | abpLocalization }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" [ngClass]="{'show': isDropdownOpen}">
@@ -144,12 +144,12 @@
   </ng-template>
 
   <ng-template #abpFooter>
-    <button type="button" class="btn btn-secondary" abpClose>
+    <button type="button" class="btn" id="close" abpClose>
       <i class="bi bi-x-circle"></i>
       {{ '::Close' | abpLocalization }}
     </button>
-    <button class="btn btn-primary" (click)="save()" [disabled]="articleForm.invalid">
-      <i class="fa fa-check me-1"></i>
+    <button class="btn" id="save" (click)="save()" [disabled]="articleForm.invalid">
+      <i class="bi bi-check-circle"></i>
       {{ '::Save' | abpLocalization }}
     </button>
   </ng-template>

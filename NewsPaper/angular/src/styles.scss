@@ -9,7 +9,7 @@
 :root  {
   --lpx-logo: url('assets/images/logo/newsLogo.png');
   --lpx-logo-icon: url('assets/images/logo/newsLogo.png');
-  --lpx-brand: #1fc135; 
+  --lpx-brand: #0dd354 ;
 }
 .donut {
   display: inline-block;
@@ -31,10 +31,32 @@
 html, body { height: 100%;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-// .lpx-nav-menu{
-//   background-color: #1fc13528 !important;
-// }
+.lpx-nav-menu{
+  background-color: #35365d !important;
+}
+.lpx-nav{
+  background-color: #35365d !important;
+}
+.lpx-nav-menu :hover{
+  background-color: #35365d !important;
+}
+.lpx-nav :hover {
+  background-color: #35365d !important;
+}
 
-// .lpx-nav-menu :hover{
-//   background-color: #1fc13551 !important;
-// }
+.lpx-nav-menu .lpx-menu-item-link.selected, .lpx-nav-menu .lpx-menu-item-link.expanded {
+  background-color: #35365d !important;
+}
+
+.lpx-logo-container {
+  background-color: #35365d !important;
+}
+
+.user-menu{
+  background-color: #35365d !important;
+}
+
+.lpx-mobile-nav-items{
+  background-color: #35365d !important;
+}
+

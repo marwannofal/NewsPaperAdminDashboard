@@ -19,7 +19,7 @@
     "@abp/ng.oauth": "~8.2.1",
     "@abp/ng.setting-management": "~8.2.1",
     "@abp/ng.tenant-management": "~8.2.1",
-    "@abp/ng.theme.lepton-x": "^3.1.5",
+    "@abp/ng.theme.lepton-x": "^3.2.1",
     "@abp/ng.theme.shared": "^8.2.1",
     "@angular/animations": "~17.3.0",
     "@angular/cdk": "^17.3.10",

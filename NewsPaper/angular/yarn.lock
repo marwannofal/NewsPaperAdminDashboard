@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@abp/ng.account.core@~8.2.0", "@abp/ng.account.core@~8.2.1":
+"@abp/ng.account.core@~8.2.1":
   version "8.2.1"
   resolved "https://registry.npmjs.org/@abp/ng.account.core/-/ng.account.core-8.2.1.tgz"
   integrity sha512-P5ObQhfZw4kaUj0h42FJMWYx3twOsM1W8oig0O1EqK6maD74Mgv5vVfOVWqvyOMp3DAF2V/Z0yS/hmjxTeg+rQ==
@@ -20,7 +20,7 @@
     "@abp/ng.theme.shared" "~8.2.1"
     tslib "^2.0.0"
 
-"@abp/ng.components@~8.2.0", "@abp/ng.components@~8.2.1":
+"@abp/ng.components@~8.2.1":
   version "8.2.1"
   resolved "https://registry.npmjs.org/@abp/ng.components/-/ng.components-8.2.1.tgz"
   integrity sha512-bbpeeU9KbqEtXSqrCWdvi2mZI/7bPNpKh64aH3tXxbqtVpObRV3YpL3Me/+06wzoOYWSpGtXoN5jy97O296y6g==
@@ -29,7 +29,7 @@
     ng-zorro-antd "^17.0.0"
     tslib "^2.0.0"
 
-"@abp/ng.core@^8.2.1", "@abp/ng.core@>=8.2.1", "@abp/ng.core@~8.2.0", "@abp/ng.core@~8.2.1":
+"@abp/ng.core@^8.2.1", "@abp/ng.core@>=8.2.1", "@abp/ng.core@~8.2.1":
   version "8.2.1"
   resolved "https://registry.npmjs.org/@abp/ng.core/-/ng.core-8.2.1.tgz"
   integrity sha512-qrhZEpg5IvS/4mwXBSkfslhl35KolxCdsr+WHLTkeZ3XD3I02VbFemtffTpBMFuZv0MZ9cxKgE64g5WlAuVSwg==
@@ -109,16 +109,16 @@
     "@abp/ng.theme.shared" "~8.2.1"
     tslib "^2.0.0"
 
-"@abp/ng.theme.lepton-x@^3.1.5":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@abp/ng.theme.lepton-x/-/ng.theme.lepton-x-3.2.0.tgz"
-  integrity sha512-S6uAWeJUnDUDTV9PyBoec5eJgx3DJXMENINZ+zZkGS+B3P0gSVCYx3vE/8oH72phYoKzPOGx7AY0l25erySPIg==
+"@abp/ng.theme.lepton-x@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@abp/ng.theme.lepton-x/-/ng.theme.lepton-x-3.2.1.tgz"
+  integrity sha512-RSaMTMHyJFzFcOt4sU9r3BP4rjEaGUG0npu5CM8+Zep5mF18/1qGcd0t2h5u/WxLphvlPu1l86P7i84DGQVUDA==
   dependencies:
-    "@volo/abp.ng.lepton-x.core" "3.2.0"
-    "@volo/ngx-lepton-x.lite" "3.2.0"
+    "@volo/abp.ng.lepton-x.core" "3.2.1"
+    "@volo/ngx-lepton-x.lite" "3.2.1"
     tslib "^2.3.0"
 
-"@abp/ng.theme.shared@^8.2.1", "@abp/ng.theme.shared@>=8.2.1", "@abp/ng.theme.shared@~8.2.0", "@abp/ng.theme.shared@~8.2.1":
+"@abp/ng.theme.shared@^8.2.1", "@abp/ng.theme.shared@>=8.2.1", "@abp/ng.theme.shared@~8.2.1":
   version "8.2.1"
   resolved "https://registry.npmjs.org/@abp/ng.theme.shared/-/ng.theme.shared-8.2.1.tgz"
   integrity sha512-9SlcaMzIrYci+zt+UQPXublOlw9Xal8iE3zDFbITguCdXiLG9M+eyDMJpdTwuls1roul8hypiWQOLxZCR+uTog==
@@ -3263,29 +3263,12 @@
   dependencies:
     tslib "^2.0.0"
 
-"@volo/abp.ng.lepton-x.core@~3.2.1":
+"@volo/abp.ng.lepton-x.core@~3.2.1", "@volo/abp.ng.lepton-x.core@3.2.1":
   version "3.2.1"
   resolved "https://registry.npmjs.org/@volo/abp.ng.lepton-x.core/-/abp.ng.lepton-x.core-3.2.1.tgz"
   integrity sha512-uSA4Sc7n5o4Wx9EStD3tWf4pzy30MTtYHAdbdlaanbifQdDdrebTIL/fglnK01PdLwNTP9FTyoTmzqDXY8nqWQ==
   dependencies:
     "@volo/ngx-lepton-x.core" "3.2.1"
-    tslib "^2.3.0"
-
-"@volo/abp.ng.lepton-x.core@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@volo/abp.ng.lepton-x.core/-/abp.ng.lepton-x.core-3.2.0.tgz"
-  integrity sha512-EQRYM7vXhEd3JLfuYxW+ayZzA3FZX9STnq3r6xGX6m/PT3WXrvcRnnRKgVXQS4kVMviSK/AikSIKa+XAmNGCfQ==
-  dependencies:
-    "@volo/ngx-lepton-x.core" "3.2.0"
-    tslib "^2.3.0"
-
-"@volo/ngx-lepton-x.core@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@volo/ngx-lepton-x.core/-/ngx-lepton-x.core-3.2.0.tgz"
-  integrity sha512-FSAgFCOKSPGrt6L5FS4URQyn8Kx9nZEC5V6XHH5cCxp9Kitxtz4+zCy2u3Mv4Jq15d3c0C1Q/9OQw0FEtsskOA==
-  dependencies:
-    perfect-scrollbar "^1.0.0"
-    ts-toolbelt "^6.15.4"
     tslib "^2.3.0"
 
 "@volo/ngx-lepton-x.core@3.2.1":
@@ -3297,13 +3280,13 @@
     ts-toolbelt "^6.15.4"
     tslib "^2.3.0"
 
-"@volo/ngx-lepton-x.lite@3.2.0":
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/@volo/ngx-lepton-x.lite/-/ngx-lepton-x.lite-3.2.0.tgz"
-  integrity sha512-u2DI7vf1Ik19nsZKulXotCAmlrXi+ebk3QnxeTUcoxh1VM/KAH+6fe1IAkWD6FQFSiC4XuUb5t6mjltWPut4tA==
+"@volo/ngx-lepton-x.lite@3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@volo/ngx-lepton-x.lite/-/ngx-lepton-x.lite-3.2.1.tgz"
+  integrity sha512-QoW62GqCBZHMKZ89noYHDCuv2k2bZTw6j8LeJ3bmZdWFXi+28wZVhqePGE3V6ERPLymbFiwGn7EcfbLRV361ZA==
   dependencies:
     "@ng-bootstrap/ng-bootstrap" "~16.0.0"
-    "@volo/ngx-lepton-x.core" "3.2.0"
+    "@volo/ngx-lepton-x.core" "3.2.1"
     bootstrap-icons "~1.7.2"
     tslib "^2.3.0"
 
@@ -7185,7 +7168,7 @@ neo-async@^2.6.2:
     "@abp/ng.oauth" "~8.2.1"
     "@abp/ng.setting-management" "~8.2.1"
     "@abp/ng.tenant-management" "~8.2.1"
-    "@abp/ng.theme.lepton-x" "^3.1.5"
+    "@abp/ng.theme.lepton-x" "^3.2.1"
     "@abp/ng.theme.shared" "^8.2.1"
     "@angular/animations" "~17.3.0"
     "@angular/cdk" "^17.3.10"
@@ -7199,7 +7182,6 @@ neo-async@^2.6.2:
     "@angular/platform-browser-dynamic" "~17.3.0"
     "@angular/router" "~17.3.0"
     "@volosoft/abp.ng.theme.lepton-x" "^3.2.1"
-    bootstrap-icons "^1.11.3"
     chart.js "^4.4.3"
     d3 "^7.9.0"
     NewsPaper "file:"

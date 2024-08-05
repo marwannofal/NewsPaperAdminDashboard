@@ -11,14 +11,14 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/',
         name: '::Menu:Dashboard',
-        iconClass: 'fa fa-tachometer',
+        iconClass: 'bi bi-speedometer',
         order: 1,
         layout: eLayoutType.application,
       },
       {
         path: '/Home',
         name: '::Menu:Home',
-        iconClass: 'fas fa-chart-line',
+        iconClass: 'bi bi-graph-up',
         order: 2,
         layout: eLayoutType.application,
         requiredPolicy: 'Newspaper.Dashboard.Host || AbpAccount.SettingManagement',
@@ -26,7 +26,7 @@ function configureRoutes(routes: RoutesService) {
       {
         path: '/news-paper',
         name: '::Menu:NewsPaper',
-        iconClass: 'fas fa-newspaper',
+        iconClass: 'bi bi-newspaper',
         order: 101,
         layout: eLayoutType.application,
       },
