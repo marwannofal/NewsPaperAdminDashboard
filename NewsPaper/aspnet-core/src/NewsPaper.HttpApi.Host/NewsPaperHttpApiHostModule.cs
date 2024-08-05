@@ -27,6 +27,8 @@ using Volo.Abp.Security.Claims;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Mvc.UI.Theming;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 
 namespace NewsPaper;
 
@@ -38,7 +40,8 @@ namespace NewsPaper;
     typeof(NewsPaperEntityFrameworkCoreModule),
     typeof(AbpAccountWebOpenIddictModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule)
 )]
 [DependsOn(typeof(AbpLocalizationModule))]
     public class NewsPaperHttpApiHostModule : AbpModule
@@ -60,6 +63,10 @@ namespace NewsPaper;
     {
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
+        Configure<AbpThemingOptions>(options =>
+        {
+            options.DefaultThemeName = LeptonXLiteTheme.Name;
+        });
 
         ConfigureAuthentication(context);
         ConfigureBundles();
